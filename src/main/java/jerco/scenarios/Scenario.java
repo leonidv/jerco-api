@@ -7,7 +7,6 @@ import jerco.network.NetStructureInfo;
 import jerco.network.generators.NetGenerator;
 import jerco.network.generators.RectGenerator;
 
-
 /**
  * Класс описывает базовые возможности сценария. Каждый сценарий должен
  * реализовать метод doScenario(). При желании, можно воспользоваться
@@ -97,17 +96,17 @@ public abstract class Scenario implements Serializable {
      * Осуществляет эксперимент для заданных параметров.
      * 
      * @param p
-     *          верояность заражения узла в сети
+     *            верояность заражения узла в сети
      * @param height
-     *          высота сети в эксперименте
+     *            высота сети в эксперименте
      * @param width
-     *          ширина сети в эксперименте
+     *            ширина сети в эксперименте
      * 
      * @return
      */
     protected ExperimentsStatistics makeExperiments(int width, int height,
             double p) {
-        ExperimentsStatistics statistics = new ExperimentsStatistics(width,
+        ExperimentsStatistics statistics = new ExperimentsStatistics(width*
                 height, p);
 
         for (int i = 0; i < experimentsCount; i++) {

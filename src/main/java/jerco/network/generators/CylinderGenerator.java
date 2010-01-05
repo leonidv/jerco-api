@@ -3,6 +3,7 @@ package jerco.network.generators;
 import java.util.List;
 
 import jerco.network.Layer;
+import jerco.network.Node;
 
 
 /**
@@ -41,7 +42,7 @@ public class CylinderGenerator implements NetGenerator {
         List<Layer> torus = RectGenerator.INSTANCE.generate(width, height);
 
         for (Layer layer : torus) {
-            Layer.linkNodes(layer.getLeftmost(), layer.getRightmost());
+            Node.linkNodes(layer.getLeftmost(), layer.getRightmost());
         }
         return torus;
     }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jerco.network.Cluster;
+import jerco.network.Net;
 import jerco.network.RegularLattice;
 import jerco.utils.Bag;
 
@@ -19,12 +20,6 @@ import jerco.utils.Bag;
  * 
  */
 public class ExperimentsStatistics {
-    // Ширина сети, над которой проводится эксперимент
-    private int width;
-
-    // Высота сети, над которой проводится эксперимент
-    private int height;
-
     // Вероятность заражения узла в эксперименте
     private double probability;
 
@@ -36,7 +31,12 @@ public class ExperimentsStatistics {
 
     // Хранит средний максимальный размер кластера
     private double meanMaxSize = Double.NaN;
-
+    
+    /**
+     * Размер сети над которой проводится эксперимент.
+     */
+    private int size;
+    
     /**
      * Создает объект сбора статистики
      * 
@@ -44,11 +44,10 @@ public class ExperimentsStatistics {
      * @param height
      * @param d
      */
-    ExperimentsStatistics(int width, int height, double d) {
+    ExperimentsStatistics(int size, double d) {
         super();
-        this.width = width;
-        this.height = height;
         this.probability = d;
+        this.size = size;
         reset();
     }
 
@@ -59,24 +58,6 @@ public class ExperimentsStatistics {
         meanMaxSize = Double.NaN;
     }
 
-    /**
-     * Возвращает ширину сети, для которой осуществляется сбор статистики
-     * 
-     * @return
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Возвращает установленную высоту сети, для которой осуществляется сбор
-     * статистики
-     * 
-     * @return
-     */
-    public int getHeight() {
-        return height;
-    }
 
     /**
      * Возвращает установленную вероятность зараженния узла, при которой
@@ -108,8 +89,8 @@ public class ExperimentsStatistics {
      *           эксперимента (см. {@link #getWidth()}, {@link #getHeight()},
      *           {@link #getProbability()})
      */
-    public void addData(RegularLattice net) {
-        if ((net.getWidth() != width) || (net.getHeight() != height)) {
+    public void addData(Net net) {
+        if ((net.size() != size)) {
             throw new IllegalArgumentException(
                     "Размер сети не соотвествует установленному "
                             + "размеру в эксперименте");
@@ -120,9 +101,8 @@ public class ExperimentsStatistics {
                     "Вероятность заражения не соответствует "
                             + "установленной в эксперименте");
         }
-
         reset();
-        // Добавляем данные о результатх
+        
         experimentsClustersSizes.add(getClustersSizes(net));
 
         count++;
@@ -134,7 +114,7 @@ public class ExperimentsStatistics {
      * @param net
      * @return
      */
-    private Bag<Integer> getClustersSizes(RegularLattice net) {
+    private Bag<Integer> getClustersSizes(Net net) {
         Bag<Integer> result = new Bag<Integer>();
         for (Cluster cluster : net.getClusters()) {
             result.add(cluster.size());
@@ -152,7 +132,7 @@ public class ExperimentsStatistics {
      * @return
      */
     public int getNetSize() {
-        return width * height;
+        return size;
     }
 
     /**

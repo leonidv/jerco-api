@@ -1,7 +1,6 @@
 package jerco.network;
 
-import static org.junit.Assert.*;
-import jerco.network.Node;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;

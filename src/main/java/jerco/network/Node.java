@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author leonidv
  */
-public class Node implements Iterable<Node> {
+public class Node implements Iterable<Node>, Comparable<Node> {
+    private static final Logger LOG = LoggerFactory.getLogger(Node.class);
+
     // Узел не содержит вещества
     final public static int NONE = 0;
 
@@ -39,67 +44,75 @@ public class Node implements Iterable<Node> {
     }
 
     /**
+     * Link nodes each other (a linked to b, b linked to a). If a == b don't do
+     * anything.
+     * 
+     * @param a
+     * @param b
+     */
+    static public void linkNodes(Node a, Node b) {
+        LOG.debug(String.format("%d ←→ %d", a.getId(), b.getId()));
+
+        if (a == b) {
+            return;
+        }
+
+        a.linkTo(b);
+        b.linkTo(a);
+    }
+
+    /**
      * Метод возвращает текущее значение счетчика узлов. Применяется при
      * модульном тестировании
      * 
      * @return - количество созданных узлов
      * @uml.property name="idCounter"
      */
-    static int getIdCounter() {
+    static public int getIdCounter() {
         return idCounter;
     }
 
     // Уникальный идентификатор узла. В первую очередь нужен для операций
     // сравнения и подсчета хэша
-    /**
-     * @uml.property name="id"
-     */
-    final private int id = nextId();
+    final private int id;
 
     // Связанные с этим узлом узлы
     private List<Node> linkedNodes = new ArrayList<Node>();
 
     // Флажок посещения узла
-    /**
-     * @uml.property name="visited"
-     */
     private boolean visited;
 
     // Флажок зараженности узла
-    /**
-     * @uml.property name="infected"
-     */
     private boolean infected;
 
     // Содержит флажок, принадлежит узел какому-нибудь кластеру или нет
-    /**
-     * @uml.property name="inCluster"
-     */
     private boolean inCluster;
 
     // Содержит флажок признака, принадлежит ли узел верхней границе сети
-    /**
-     * @uml.property name="inTopBound"
-     */
     private boolean inTopBound;
 
     // Содержит флажок, принадлежит ли узел нижней границе сети
-    /**
-     * @uml.property name="inBottomBound"
-     */
     private boolean inBottomBound;
 
     // Содержит флажок, принадлежит ли узел перколяционному кластеру
-    /**
-     * @uml.property name="inPercolationCluster"
-     */
     private boolean inPercolationCluster;
 
-    // Содержит вероятность замещения одного вещества другим
-    private double displaceProbability;
+    /**
+     * Сопоставленная узлу вероятность.
+     * 
+     */
+    private double probability;
 
     // Идентификатор вещества, которое содержит узел
     private int substance = NONE;
+
+    public Node() {
+        this(nextId());
+    }
+
+    public Node(int id) {
+        this.id = id;
+    }
 
     /**
      * Возвращает, заражен узел или нет
@@ -150,7 +163,7 @@ public class Node implements Iterable<Node> {
      * 
      * @param node
      */
-    public void addLinkedNode(Node node) {
+    public void linkTo(Node node) {
         if (linkedNodes.contains(node)) {
             return;
         }
@@ -268,17 +281,17 @@ public class Node implements Iterable<Node> {
      * 
      * @return
      */
-    public double getDisplaceProbability() {
-        return displaceProbability;
+    public double getProbability() {
+        return probability;
     }
 
     /**
      * Устанавливае вероятность замещения одного вещества другим
      * 
-     * @param displaceProbability
+     * @param probability
      */
-    public void setDisplaceProbability(double displaceProbability) {
-        this.displaceProbability = displaceProbability;
+    public void setProbability(double displaceProbability) {
+        this.probability = displaceProbability;
     }
 
     /**
@@ -324,5 +337,10 @@ public class Node implements Iterable<Node> {
         return String.format(
                 "Node id = %d, infected = %b, visited = %b, substance = %d",
                 id, infected, visited, substance);
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return id - o.getId();
     }
 }

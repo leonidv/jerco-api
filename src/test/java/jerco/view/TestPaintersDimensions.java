@@ -1,15 +1,11 @@
 package jerco.view;
 
-import static org.junit.Assert.*;
-import jerco.network.RegularLattice;
+import static org.junit.Assert.assertTrue;
 import jerco.network.NetStructureInfo;
-import jerco.network.generators.NetGenerators;
+import jerco.network.RegularLattice;
 import jerco.network.generators.RectGenerator;
-import jerco.view.CircleEdgesPainter;
-import jerco.view.ShapesPainter;
 
 import org.junit.Before;
-import org.junit.Test;
 
 
 public class TestPaintersDimensions {

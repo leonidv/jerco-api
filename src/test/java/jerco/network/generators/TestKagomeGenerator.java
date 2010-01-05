@@ -4,7 +4,7 @@ import java.util.List;
 
 import jerco.network.Layer;
 import jerco.network.TestBase;
-
+import static jerco.TestUtils.*;
 import org.junit.Test;
 
 public class TestKagomeGenerator extends TestBase {
@@ -40,7 +40,7 @@ public class TestKagomeGenerator extends TestBase {
 
         layer = layers.get(4);
         checkNode(layer.getNode(0), 8, new Integer[] { 9 });
-        checkNode(layer.getNode(1), 9, new Integer[] { 8, 7, 10});
+        checkNode(layer.getNode(1), 9, new Integer[] { 8, 7, 10 });
         checkNode(layer.getNode(2), 10, new Integer[] { 7, 9 });
     }
 

@@ -41,7 +41,7 @@ public class AbsoluteDisplacementStrategy implements DisplacementStrategy {
             }
 
             result.incFindedCount();
-            final double p = node.getDisplaceProbability();
+            final double p = node.getProbability();
             if (Constants.compare(minProbabality, p) == 1) {
                 destination = node;
                 minProbabality = p;

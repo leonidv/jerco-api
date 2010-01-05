@@ -1,14 +1,13 @@
 package jerco.network;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
-import jerco.network.Layer;
-import jerco.network.Node;
-
 import org.junit.Test;
 
+import static jerco.TestUtils.*;
 
 public class TestLayer extends TestBase {
 
@@ -16,7 +15,7 @@ public class TestLayer extends TestBase {
 	public void testLinkNodes() {
 		Node a = new Node();
 		Node b = new Node();
-		Layer.linkNodes(a, b);
+		Node.linkNodes(a, b);
 		Iterator<Node> iterA = a.iterator();
 		Iterator<Node> iterB = b.iterator();
 		assertTrue("a.hasNext()", iterA.hasNext());

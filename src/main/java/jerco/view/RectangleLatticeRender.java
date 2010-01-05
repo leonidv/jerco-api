@@ -19,7 +19,7 @@ import jerco.network.Node;
 /**
  * @author leonidv
  */
-public class StructureNetRender {
+public class RectangleLatticeRender {
 
     /**
      * Сохраняет представление сети в заданный файл.
@@ -62,7 +62,7 @@ public class StructureNetRender {
      * @return - нарисованное изображение сети.
      */
     public static BufferedImage renderImage(RegularLattice net, Painter painter) {
-        StructureNetRender render = new StructureNetRender(net, painter);
+        RectangleLatticeRender render = new RectangleLatticeRender(net, painter);
 
         BufferedImage image = new BufferedImage(render.getImageWidth(), render
                 .getImageHeight(), BufferedImage.TYPE_INT_RGB);
@@ -84,7 +84,7 @@ public class StructureNetRender {
      * @throws NullPointerException -
      *           в случае, если передан указатель null
      */
-    StructureNetRender(RegularLattice network, Painter painter) {
+    RectangleLatticeRender(RegularLattice network, Painter painter) {
         if (network == null) {
             throw new NullPointerException(
                     "Параметр network не может быть равен null");

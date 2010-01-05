@@ -1,7 +1,7 @@
 package jerco.network;
 
-import static org.junit.Assert.*;
-import jerco.network.NetStructureInfo;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import jerco.network.generators.RectGenerator;
 
 import org.junit.Test;

@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 
 import jerco.network.InfectedNodeIterator;
+import jerco.network.Net;
 import jerco.network.RegularLattice;
 import jerco.network.NetStructureInfo;
 import jerco.network.Node;
@@ -27,9 +28,8 @@ import jerco.scenarios.ScenarioExecuteException;
 import jerco.scenarios.ScenarioProgressIndicator;
 import jerco.view.Painter;
 import jerco.view.SquarePainter;
-import jerco.view.StructureNetRender;
+import jerco.view.RectangleLatticeRender;
 import jerco.view.colorer.DisplacementColorer;
-
 
 /**
  * Реализует перколяцию замещения. На выход предоставляет информацию шагах
@@ -42,9 +42,10 @@ import jerco.view.colorer.DisplacementColorer;
 public class DisplacementScenario extends Scenario {
 
     private static final int NO_PERCOLATION_YET = -1;
-    
+
     /**
-     * Точка входа в программу. 
+     * Точка входа в программу.
+     * 
      * @param args
      */
     public static void main(String[] args) {
@@ -125,7 +126,7 @@ public class DisplacementScenario extends Scenario {
 
             // Получаем список с информацией о каждом шаге заражения
             List<StepInfo> result = scenario.getResult();
-            
+
             /*
              * Выводим файлы в информацию о каждом шаге выполнения
              */
@@ -136,7 +137,7 @@ public class DisplacementScenario extends Scenario {
                 frontSizeFile.println(stepInfo.getFrontSize());
                 totalCountFile.println(total);
             }
-            
+
             /*
              * Закрываем файлы.
              */
@@ -155,7 +156,7 @@ public class DisplacementScenario extends Scenario {
     private static final long serialVersionUID = 6442001063754030036L;
 
     // Ссылка на обрабатываемую сеть
-    private RegularLattice net;
+    private Net net;
 
     // Вероятност заражения узла сети воздухом
     private int infectProbability;
@@ -240,14 +241,18 @@ public class DisplacementScenario extends Scenario {
 
         int step = 0;
         if (saveThumbail || saveImages) {
-            drawImage(net, initialFront, step);
+            if (net instanceof RegularLattice) {
+                drawImage((RegularLattice) net, initialFront, step);
+            }
         }
         while ((front.size() > 0) && (!stop)) {
             step++;
             getIndicator().progress(totalDisplacement);
             Collection<Node> nextFront = makeStep(net, front);
             if (saveImages) {
-                drawImage(net, nextFront, step);
+                if (net instanceof RegularLattice) {
+                    drawImage((RegularLattice) net, nextFront, step);
+                }
             }
             result.add(new StepInfo(nextFront, totalDisplacement));
             front = nextFront;
@@ -274,8 +279,8 @@ public class DisplacementScenario extends Scenario {
     private BufferedImage drawImage(RegularLattice net, Collection<Node> front,
             int stepCount) {
         colorer.setFront(front);
-        final BufferedImage image = StructureNetRender
-                .renderImage(net, painter);
+        final BufferedImage image = RectangleLatticeRender.renderImage(net,
+                painter);
         String fileName = String.format(fileNameTemplate, stepCount);
         try {
             ImageIO.write(image, "png", new File(fileName));
@@ -293,11 +298,11 @@ public class DisplacementScenario extends Scenario {
      * 
      * @param net
      */
-    void prepareNet(RegularLattice net) {
+    void prepareNet(Net net) {
         for (Node node : new InfectedNodeIterator(net.iterator())) {
             if (node.isInPercolationCluster()) {
                 node.setSubstance(Node.OXYGEN);
-                node.setDisplaceProbability(generateDisplaceProbability());
+                node.setProbability(generateDisplaceProbability());
                 initInfectableCount++;
             } else {
                 node.setInfected(false);
@@ -319,7 +324,7 @@ public class DisplacementScenario extends Scenario {
      * @param front
      * @return следующий фронт заражения
      */
-    Collection<Node> makeStep(RegularLattice net, Collection<Node> front) {
+    Collection<Node> makeStep(Net net, Collection<Node> front) {
         Set<Node> nextFront = new HashSet<Node>(front.size());
 
         for (Node frontNode : front) {
@@ -414,11 +419,11 @@ public class DisplacementScenario extends Scenario {
      * 
      * @return
      */
-    public RegularLattice getNet() {
+    public Net getNet() {
         return net;
     }
 
-    public void setNet(RegularLattice net) {
+    public void setNet(Net net) {
         if (net == null) {
             throw new NullPointerException(
                     "Сеть должна быть существующим объектом (net == null)");

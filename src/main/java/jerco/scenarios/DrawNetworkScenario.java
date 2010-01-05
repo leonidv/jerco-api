@@ -12,11 +12,12 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import jerco.network.Net;
 import jerco.network.RegularLattice;
 import jerco.network.NetStructureInfo;
 import jerco.view.Painter;
 import jerco.view.SquarePainter;
-import jerco.view.StructureNetRender;
+import jerco.view.RectangleLatticeRender;
 
 
 public class DrawNetworkScenario extends Scenario {
@@ -97,7 +98,7 @@ public class DrawNetworkScenario extends Scenario {
                         height, probability);
                 fileName = fileName.replace(",", ".");
 
-                BufferedImage image = StructureNetRender.renderToFile(net,
+                BufferedImage image = RectangleLatticeRender.renderToFile(net,
                         painter, fileName);
                 addThumbnails(image);
 

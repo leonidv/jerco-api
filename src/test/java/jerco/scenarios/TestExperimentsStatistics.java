@@ -3,14 +3,14 @@ package jerco.scenarios;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-
+import static jerco.TestUtils.*;
 import jerco.Constants;
-import jerco.network.RegularLattice;
+import jerco.network.Net;
 import jerco.network.NetStructureInfo;
+import jerco.network.RegularLattice;
 import jerco.network.TestBase;
 import jerco.network.RegularLattice.BadNetFileFormatException;
 import jerco.network.generators.RectGenerator;
-import jerco.scenarios.ExperimentsStatistics;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,27 +22,27 @@ public class TestExperimentsStatistics extends TestBase {
 
     @Before
     public void setUp() throws FileNotFoundException, BadNetFileFormatException {
-        statistics = new ExperimentsStatistics(5, 5, 0.6);
+        statistics = new ExperimentsStatistics(5*5, 0.6);
         statistics.addData(loadNet5x5());
 
-        statistics2 = new ExperimentsStatistics(5, 5, 0.6);
+        statistics2 = new ExperimentsStatistics(5*5, 0.6);
         for (int i = 0; i < 10; i++) {
             statistics2.addData(loadNet5x5());
         }
 
-        statistics3 = new ExperimentsStatistics(5, 5, 0.6);
+        statistics3 = new ExperimentsStatistics(5*5, 0.6);
         final String FILE_NAME = "cluster 5x5 test%02d.txt";
         for (int i = 1; i <= 5; i++) {
             RegularLattice net = new RegularLattice();
-            net.load(makeTestFile(String.format(FILE_NAME, i)));
+            net.load(loadTestFile(String.format(FILE_NAME, i)));
             statistics3.addData(net);
         }
     }
 
-    private RegularLattice loadNet5x5() {
+    private Net loadNet5x5() {
         RegularLattice net = new RegularLattice();
         try {
-            net.load(makeTestFile(FILE_CLUSTER_5X5));
+            net.load(loadTestFile(FILE_CLUSTER_5X5));
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class TestExperimentsStatistics extends TestBase {
         structureInfo.setGenerator(RectGenerator.INSTANCE);
         structureInfo.setWidth(5);
         structureInfo.setHeight(5);
-        RegularLattice net = new RegularLattice(structureInfo);
+        Net net = new RegularLattice(structureInfo);
         statistics.clear();
         for (int i = 0; i < 5; i++) {
             net.infect(0.6);

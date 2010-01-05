@@ -1,30 +1,24 @@
 package jerco.network;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.net.NetworkInterface;
 import java.util.Iterator;
-
-import jerco.network.InfectedNodeIterator;
-import jerco.network.RegularLattice;
-import jerco.network.Node;
-import jerco.network.generators.RectGenerator;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
+import static jerco.TestUtils.*;
 
 public class TestInfectedNodeIterator extends TestBase {
     static private RegularLattice net5x5;
-    static private RegularLattice netEmpty;
+    static private NetImpl netEmpty;
     private InfectedNodeIterator iterator5x5;
 
     @BeforeClass
     static public void createNet() throws Exception {
         Node.resetIdCounter();
         net5x5 = new RegularLattice();
-        net5x5.load(makeTestFile(TestBase.FILE_CLUSTER_5X5));
+        net5x5.load(loadTestFile(TestBase.FILE_CLUSTER_5X5));
 
         Node.resetIdCounter();
         netEmpty = new RegularLattice();

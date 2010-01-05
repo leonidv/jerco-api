@@ -15,25 +15,7 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Layer implements Iterable<Node> {
-    private final static Logger LOG = LoggerFactory.getLogger(Layer.class);
-
-    /**
-     * Link nodes each other (a linked to b, b linked to a). If a == b don't do
-     * anything.
-     * 
-     * @param a
-     * @param b
-     */
-    static public void linkNodes(Node a, Node b) {
-        LOG.debug(String.format("%d ←→ %d", a.getId(), b.getId()));
-        
-        if (a == b) {
-            return;
-        }
-        
-        a.addLinkedNode(b);
-        b.addLinkedNode(a);
-    }
+    final static private Logger LOG = LoggerFactory.getLogger(Layer.class);
 
     // Список узлов слоя
     private List<Node> nodes;
@@ -57,7 +39,7 @@ public class Layer implements Iterable<Node> {
      */
     public void linkNeighbors() {
         for (int i = 0; i < nodes.size() - 1; i++) {
-            linkNodes(nodes.get(i), nodes.get(i + 1));
+            Node.linkNodes(nodes.get(i), nodes.get(i + 1));
         }
     }
 

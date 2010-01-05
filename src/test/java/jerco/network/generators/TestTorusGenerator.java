@@ -1,17 +1,16 @@
 package jerco.network.generators;
 
-import static org.junit.Assert.*;
+import static jerco.TestUtils.checkNetStructure;
+import static jerco.TestUtils.checkNode;
 
 import java.util.List;
 
 import jerco.network.Layer;
 import jerco.network.Node;
 import jerco.network.TestBase;
-import jerco.network.generators.CylinderGenerator;
 
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class TestTorusGenerator extends TestBase {
 
@@ -68,7 +67,7 @@ public class TestTorusGenerator extends TestBase {
 
         leftmost = net.get(2).getLeftmost();
         rightmost = net.get(2).getRightmost();
-        
+
         checkNode(leftmost, 10, 5, 11, 14);
         checkNode(rightmost, 14, 9, 13, 10);
     }

@@ -1,6 +1,10 @@
 package jerco.network;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,12 +15,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import jerco.network.Cluster;
-import jerco.network.RegularLattice;
-import jerco.network.NetStructureInfo;
-import jerco.network.Node;
 import jerco.network.RegularLattice.BadNetFileFormatException;
 import jerco.network.generators.RectGenerator;
+import static jerco.TestUtils.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -79,8 +80,8 @@ public class TestNet extends TestBase {
 
     @Test
     public void testEquals() {
-        RegularLattice a = new RegularLattice(structureInfo);
-        RegularLattice b = new RegularLattice(structureInfo);
+        Net a = new RegularLattice(structureInfo);
+        Net b = new RegularLattice(structureInfo);
 
         assertEquals("Равные сети не равны", a, b);
 
@@ -264,7 +265,7 @@ public class TestNet extends TestBase {
     public void testClustersOrder() {
         structureInfo.setWidth(100);
         structureInfo.setHeight(100);
-        RegularLattice net = new RegularLattice(structureInfo);
+        Net net = new RegularLattice(structureInfo);
         net.infect(0.6);
 
         Iterator<Cluster> iterator = net.getClusters().iterator();
@@ -281,7 +282,7 @@ public class TestNet extends TestBase {
     public void testFindClusters() {
         RegularLattice net = new RegularLattice();
         try {
-            net.load(makeTestFile(FILE_CLUSTER_5X5));
+            net.load(loadTestFile(FILE_CLUSTER_5X5));
             //net.printClusters(System.out);
             assertSame(4, net.findClusters());
             

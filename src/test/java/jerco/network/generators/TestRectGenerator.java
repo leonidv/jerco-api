@@ -5,12 +5,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import jerco.network.Layer;
-import jerco.network.RegularLattice;
 import jerco.network.NetStructureInfo;
 import jerco.network.Node;
+import jerco.network.RegularLattice;
 import jerco.network.TestBase;
-import jerco.network.generators.RectGenerator;
-
+import static jerco.TestUtils.*;
 import org.junit.Before;
 import org.junit.Test;
 

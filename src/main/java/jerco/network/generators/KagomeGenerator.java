@@ -83,7 +83,7 @@ public class KagomeGenerator implements NetGenerator {
             int previousIndex = (i - substraction) / 2;
             if (previousIndex < previousLayer.size()) {
                 Node b = previousLayer.getNode(previousIndex);
-                Layer.linkNodes(a, b);
+                Node.linkNodes(a, b);
             }
         }
 
@@ -115,10 +115,10 @@ public class KagomeGenerator implements NetGenerator {
             Node a = layer.getNode(i);
 
             Node b = previousLayer.getNode(i * 2 + addition);
-            Layer.linkNodes(a, b);
+            Node.linkNodes(a, b);
 
             b = previousLayer.getNode(i * 2 + 1 + addition);
-            Layer.linkNodes(a, b);
+            Node.linkNodes(a, b);
         }
 
         return layer;

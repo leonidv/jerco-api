@@ -1,11 +1,10 @@
 package jerco.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import jerco.utils.Bag;
 
 import org.junit.Test;
 

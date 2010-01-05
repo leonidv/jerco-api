@@ -1,6 +1,5 @@
 package jerco.network;
 
-import static jerco.Constants.DOUBLE_PRECISION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,7 +25,7 @@ import jerco.network.generators.NetGenerators;
  * Сеть с регулярной структурой. Позволяет создавать сеть с заданным правилом генерации структуры. Например, квадратную сеть или треугольную. Для задания правила создания структуры применяется шаблон проектирования Стратегия. Поведение генератора описано в интерфейсе NetGenerator. <p> Реализует интефрейс Iterabla<Node> при этом обходятся все узлы, которые есть в сети. Существует также возможность получить обход только зараженных узлов и только узлов, принадлежащих перколяционному кластеру.
  * @author     leonidv
  */
-public class RegularLattice implements Iterable<Node> {
+public class RegularLattice extends NetImpl {
     // Собственное исключение, генерируемое в случае плохого формата файла сети
     public static class BadNetFileFormatException extends Exception {
         private static final long serialVersionUID = 1L;
@@ -96,22 +95,10 @@ public class RegularLattice implements Iterable<Node> {
     private boolean generated;
     
     /**
-     * Вероятность заражения сети
-     * @uml.property   name="infectProbability"
-     */
-    private double infectProbability = Double.NaN;
-
-    /**
      * Слои сети
      * @uml.property   name="layers"
      */
     private List<Layer> layers = new ArrayList<Layer>();
-
-    /**
-     * Кластеры в сети
-     * @uml.property   name="clusters"
-     */
-    private List<Cluster> clusters;
 
     public RegularLattice() {
         reset();
@@ -147,67 +134,11 @@ public class RegularLattice implements Iterable<Node> {
     }
 
     /**
-     * Возвращает итератор перебора всех узлов в сети.
-     * 
-     * @return
-     */
-    public NodeIterator iterator() {
-        return new NodeIterator();
-    }
-
-    /**
      * Осуществляет заражение из одной точки
      * 
      * @param firstNode
      */
     public void infect(Node firstNode, double treshold) {
-    }
-
-    /**
-     * Осуществляет заражение сети по методу <font color="red">Бернулли</font>
-     * <p/> При этом методе перколяция осуществляется следующим способом. Каждый
-     * узел с заданной вероятностью подвергается возможности заражения.
-     * 
-     * @param p
-     *          вероятнось заражения узла.
-     */
-    strictfp public void infect(double p) {
-        infectProbability = p;
-        for (Node node : this) {
-            boolean infected = (infectProbability - Math.random()) > DOUBLE_PRECISION;
-            node.setInfected(infected);
-        }
-        findClusters();
-    }
-
-    /**
-     * Осуществляет поиск кластеров. В конце поиска кластеры ранжируются по
-     * возрастанию мощности (размера) кластера.
-     * 
-     * @return количество кластеров в сети
-     */
-    public int findClusters() {
-        resetClusters();
-        for (Node node : this) {
-            if (!node.isInCluster() && node.isInfected()) {
-                Cluster cluster = new Cluster(node);
-                cluster.build();
-                clusters.add(cluster);
-            }
-        }
-        Collections.sort(clusters);
-        return clusters.size();
-    }
-
-    /**
-     * Осуществляет сброс кластеров сети. При этом создается новый список
-     * кластеров, а все узлы помечаются как не находящиеся в каком-либо кластере
-     */
-    public void resetClusters() {
-        clusters = new ArrayList<Cluster>();
-        for (Node node : this) {
-            node.setInCluster(false);
-        }
     }
 
     public NetStructureInfo getStructureInfo() {
@@ -244,6 +175,9 @@ public class RegularLattice implements Iterable<Node> {
         return structureInfo.getHeight();
     }
     
+    /* (non-Javadoc)
+     * @see jerco.network.Net#size()
+     */
     public int size() {
         int size = 0;
         for (Layer layer : layers) {
@@ -253,38 +187,6 @@ public class RegularLattice implements Iterable<Node> {
         return size;
     }
     
-    /**
-     * Возвращает вероятность заражения узла сети, которая была установлена при
-     * последнем заражении.
-     * 
-     * @return вероятность, с который были заражены узлы в последний раз.
-     *         Double.NaN, в случае, если операция заражения не осуществлялась.
-     * @uml.property name="infectProbability"
-     */
-    public double getInfectProbability() {
-        return infectProbability;
-    }
-
-    /**
-     * Осуществляет сбор флага "посещено" у всех узлов сети.
-     */
-    public void resetVisited() {
-        for (Node node : this) {
-            node.setVisited(false);
-        }
-    }
-
-    /**
-     * Осуществляет сбор флага "заражен" у всех узлов сети. Эта операция также
-     * приводит к сбросу списка кластеров в сети
-     */
-    public void resetInfected() {
-        for (Node node : this) {
-            node.setInfected(false);
-        }
-        clusters.clear();
-    }
-
     /**
      * Возвращает неизменяемый список слоев сети
      * 
@@ -296,41 +198,7 @@ public class RegularLattice implements Iterable<Node> {
     }
 
     /**
-     * Возвращает неизменяемое множество кластеров сети
-     * 
-     * @return - неизменяемое множество кластеров
-     * @uml.property name="clusters"
-     */
-    public List<Cluster> getClusters() {
-        return Collections.<Cluster> unmodifiableList(clusters);
-    }
-
-    /**
-     * Возвращает истину, если имеется хотя бы один перколяционный кластер.
-     * 
-     * @return
-     */
-    public boolean hasPercolationCluster() {
-        for (Cluster cluster : clusters) {
-            if (cluster.isPercolation()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Осуществляет полный сброс информации о сети.
-     */
-    public void reset() {
-        //layers = new ArrayList<Layer>();
-        resetClusters();
-        resetVisited();
-        resetInfected();
-    }
-
-    /**
-     * Сохраняет структуру сети на жеский диск. При этом информация о связях
+     * Сохраняет структуру сети на жесткий диск. При этом информация о связях
      * между узлами не сохраняется, а сохраняется тип генератора. При этом
      * сохраняется информация о зараженности узлов. <br/>
      * 

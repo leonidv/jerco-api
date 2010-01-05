@@ -1,19 +1,15 @@
 package jerco.network;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Iterator;
-import java.util.List;
-
-import jerco.network.Cluster;
-import jerco.network.RegularLattice;
-import jerco.network.Node;
-import jerco.network.RegularLattice.BadNetFileFormatException;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import static jerco.TestUtils.*;
 
 
 /**
@@ -40,7 +36,7 @@ public class TestCluster extends TestBase {
     @Before
     public void reloadNet() throws Exception {
         net = new RegularLattice();
-        net.load(makeTestFile(FILE_CLUSTER_5X5));
+        net.load(loadTestFile(FILE_CLUSTER_5X5));
         net.resetClusters();
 
     }
@@ -134,7 +130,7 @@ public class TestCluster extends TestBase {
     public void testCompare() {
         // Мелкий хак. Сохраняем указатель на загруженную сеть, а потом
         // поле net начинает указывает на другой объект загруженное сети.
-        RegularLattice otherNet = net;
+        Net otherNet = net;
 
         Iterator<Cluster> iterator = net.getClusters().iterator();
         Iterator<Cluster> otherIterator = otherNet.getClusters().iterator();

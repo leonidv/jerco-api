@@ -1,22 +1,19 @@
 package jerco.scenarios.dynamic;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.List;
 
-import jerco.network.RegularLattice;
 import jerco.network.Node;
+import jerco.network.RegularLattice;
 import jerco.network.TestBase;
-import jerco.network.RegularLattice.BadNetFileFormatException;
-import jerco.scenarios.dynamic.AbsoluteDisplacementStrategy;
-import jerco.scenarios.dynamic.DisplacementScenario;
-import jerco.scenarios.dynamic.StepInfo;
 
 import org.junit.Before;
 import org.junit.Test;
-
+import static jerco.TestUtils.*;
 
 /**
  * Тестирования алгоритмов сети осуществляется на стратегии абсолютного
@@ -32,7 +29,7 @@ public class TestDisplacementScenario extends TestBase {
     @Before
     public void setUp() throws Exception {
         net = new RegularLattice();
-        net.load(makeTestFile("cluster 5x5 test06.txt"));
+        net.load(loadTestFile("cluster 5x5 test06.txt"));
         scenario = new DisplacementScenario();
         scenario.setNet(net);
         scenario.setStrategy(new AbsoluteDisplacementStrategy());
@@ -186,7 +183,7 @@ public class TestDisplacementScenario extends TestBase {
 
     private void setDiplaceProbability(int layer, int column, double p) {
         final Node node = net.getLayers().get(layer).getNode(column);
-        node.setDisplaceProbability(p);
+        node.setProbability(p);
         node.setInfected(true);
         node.setSubstance(Node.OXYGEN);
     }
