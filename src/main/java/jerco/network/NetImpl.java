@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -36,16 +37,36 @@ class NetImpl implements Net {
     protected List<Cluster> clusters;
 
     /**
+     * Границы в сети.
+     */
+    private Set<Integer> bounds;
+
+    /**
      * Метод нужен чтобы сильно не ломать RegularLattice
      */
     @Deprecated
     public NetImpl() {
-        
+
     }
-    
+
     public NetImpl(NetReader reader) {
         nodes = reader.read();
+        findBoundsPrivate();
     }
+
+    /**
+     * Осуществляет поиск границ в сети.
+     * <p>
+     * private-метод для вызова в конструкторе.
+     */
+    final protected void findBoundsPrivate() {
+        for (Node node : this) {
+            if (node.isInBound()) {
+                bounds.add(node.getBound());
+            }
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -133,11 +154,16 @@ class NetImpl implements Net {
      * {@inheritDoc}
      */
     public boolean hasPercolationCluster() {
+        if (bounds.isEmpty()) {
+            return false;
+        }
+        
         for (Cluster cluster : clusters) {
-            if (cluster.isPercolation()) {
+            if (cluster.getBounds().equals(bounds)) {
                 return true;
             }
         }
+        
         return false;
     }
 
@@ -157,7 +183,7 @@ class NetImpl implements Net {
      * @see java.util.List#size()
      */
     public int size() {
-        return clusters.size();
+        return nodes.size();
     }
 
 }

@@ -28,13 +28,14 @@ public class KagomeGenerator implements NetGenerator {
 
     @Override
     public List<Layer> generate(int width, int height) {
-        List<Layer> net = new ArrayList<Layer>(height);
+        List<Layer> layers = new ArrayList<Layer>(height);
 
         Layer layer = new Layer(width);
         layer.linkNeighbors();
-        net.add(layer);
+        layers.add(layer);
+        
         for (int layerNumber = 1; layerNumber < height; layerNumber++) {
-            Layer previousLayer = net.get(layerNumber - 1);
+            Layer previousLayer = layers.get(layerNumber - 1);
             switch (getBasePartLayerNumber(layerNumber)) {
             case 3:
             case 5:
@@ -46,9 +47,18 @@ public class KagomeGenerator implements NetGenerator {
                 break;
             }
 
-            net.add(layer);
+            layers.add(layer);
         }
-        return net;
+
+        for (Node node : layers.get(0)) {
+            node.setBound(0);
+        }
+
+        for (Node node : layers.get(layers.size() - 1)) {
+            node.setBound(1);
+        }
+
+        return layers;
     }
 
     /**

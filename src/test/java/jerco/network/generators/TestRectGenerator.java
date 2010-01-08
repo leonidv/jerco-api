@@ -136,11 +136,11 @@ public class TestRectGenerator extends TestBase {
         structureInfo.setHeight(3);        
         RegularLattice net = new RegularLattice(structureInfo); 
         for (Node node : net.getLayers().get(0)) {
-            assertTrue(node.isInTopBound());
+            assertTrue(node.getBound() == 0);
         }
         
         for (Node node : net.getLayers().get(2)) {
-            assertTrue(node.isInBottomBound());
+            assertTrue(node.getBound() == 1);
         }
         
         

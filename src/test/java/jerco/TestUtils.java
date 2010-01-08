@@ -5,9 +5,11 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import jerco.network.Layer;
 import jerco.network.Node;
@@ -145,5 +147,19 @@ public class TestUtils {
             result.add(var);
         }
         return result;
+    }
+    
+    /**
+     * Преобразует полученные данные в множество.
+     * @param <T>
+     * @param data
+     * @return
+     */
+    public static <T> Set<T> asSet(T ... data) {
+        Set<T> set = new HashSet<T>();
+        for (T d : data) {
+            set.add(d);
+        }
+        return set;
     }
 }

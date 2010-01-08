@@ -22,9 +22,6 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     // Узел содержит воду
     final public static int WATER = 2;
 
-    /**
-     * @uml.property name="idCounter"
-     */
     private static int idCounter = 0;
 
     /**
@@ -37,7 +34,7 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     }
 
     /**
-     * Метод сбрасывает счетчик узлов. Используется при модульном тестировании.
+     * Метод сбрасывает счетчик узлов.
      */
     static void resetIdCounter() {
         idCounter = 0;
@@ -88,18 +85,21 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     // Содержит флажок, принадлежит узел какому-нибудь кластеру или нет
     private boolean inCluster;
 
-    // Содержит флажок признака, принадлежит ли узел верхней границе сети
-    private boolean inTopBound;
-
-    // Содержит флажок, принадлежит ли узел нижней границе сети
-    private boolean inBottomBound;
-
     // Содержит флажок, принадлежит ли узел перколяционному кластеру
     private boolean inPercolationCluster;
 
     /**
+     * Флажок, принадлежит ли узел границе или нет.
+     */
+    private boolean inBound;
+
+    /**
+     * Номер границы, если узел ей принадлежит.
+     */
+    private int bound;
+
+    /**
      * Сопоставленная узлу вероятность.
-     * 
      */
     private double probability;
 
@@ -182,12 +182,58 @@ public class Node implements Iterable<Node>, Comparable<Node> {
 
     /**
      * Возвращает идентификатор узла
-     * 
      * @return
-     * @uml.property name="id"
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Возвращает истину, если узел принадлежит какой-либо границе.
+     * <p>
+     * Значение устанавливается при вызове функции {@link #setBound(int)}.
+     * 
+     * @return the inBound
+     */
+    public boolean isInBound() {
+        return inBound;
+    }
+
+    /**
+     * Возвращает номер границы, к которой принадлежит узел.
+     * 
+     * @return номер границы, к которой принадлежит узел.
+     * @throws IllegalStateException
+     *             если inBound == false.
+     */
+    public int getBound() {
+        if (!inBound) {
+            throw new IllegalStateException("Узел не принадлежит границе");
+        }
+        return bound;
+    }
+
+    /**
+     * @param bound
+     *            the bound to set
+     */
+    public void setBound(int bound) {
+        this.bound = bound;
+        this.inBound = true;
+    }
+
+    /**
+     * Удаляет узел из границы.
+     */
+    public void removeFromBound() {
+        this.inBound = false;
+    }
+
+    /**
+     * @return the inPercolationCluster
+     */
+    public boolean isInPercolationCluster() {
+        return inPercolationCluster;
     }
 
     /**
@@ -214,56 +260,6 @@ public class Node implements Iterable<Node>, Comparable<Node> {
         if (!this.inCluster) {
             setInPercolationCluster(false);
         }
-    }
-
-    /**
-     * Возвращает истину, если узел принадлежит верхней границе сети
-     * 
-     * @return
-     * @uml.property name="inTopBound"
-     */
-    public boolean isInTopBound() {
-        return inTopBound;
-    }
-
-    /**
-     * Устанавливает, принадлежит ли узел нижней границе сети или нет
-     * 
-     * @param boundary
-     * @uml.property name="inTopBound"
-     */
-    public void setInTopBound(boolean boundary) {
-        this.inTopBound = boundary;
-    }
-
-    /**
-     * Возвращает истину, если узел принадлежит нижней границе сети
-     * 
-     * @return
-     * @uml.property name="inBottomBound"
-     */
-    public boolean isInBottomBound() {
-        return inBottomBound;
-    }
-
-    /**
-     * Устанавливает, принадлежит ли узел нижней границе сети
-     * 
-     * @param inBottomBound
-     * @uml.property name="inBottomBound"
-     */
-    public void setInBottomBound(boolean inDownBound) {
-        this.inBottomBound = inDownBound;
-    }
-
-    /**
-     * Возвращает истину, если узел находится в перколяционном кластере
-     * 
-     * @return истина, если узел принадлежит перколяционному кластеру
-     * @uml.property name="inPercolationCluster"
-     */
-    public boolean isInPercolationCluster() {
-        return inPercolationCluster;
     }
 
     /**

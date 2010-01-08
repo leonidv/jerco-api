@@ -1,16 +1,14 @@
 package jerco.network;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static jerco.TestUtils.*;
-
 
 /**
  * Тестирование алгоритма построения одного кластера. Тестирование
@@ -48,7 +46,7 @@ public class TestCluster extends TestBase {
     @Test
     public void testBuild01() {
         final Node node = getNodeByIndex(net, 0, 0);
-        checkCluster(node, 1, false, new Integer[] { 0 });
+        checkCluster(node, 1, asSet(0), new Integer[] { 0 });
     }
 
     /**
@@ -59,13 +57,13 @@ public class TestCluster extends TestBase {
     @Test
     public void testBuild02_top() {
         final Node node = getNodeByIndex(net, 0, 2);
-        checkCluster(node, 5, false, new Integer[] { 2, 7, 10, 11, 12 });
+        checkCluster(node, 5, asSet(0), new Integer[] { 2, 7, 10, 11, 12 });
     }
 
     @Test
     public void testBuild02_center() {
         final Node node = getNodeByIndex(net, 2, 2);
-        checkCluster(node, 5, false, new Integer[] { 2, 7, 10, 11, 12 });
+        checkCluster(node, 5, asSet(0), new Integer[] { 2, 7, 10, 11, 12 });
     }
 
     /**
@@ -75,7 +73,7 @@ public class TestCluster extends TestBase {
     @Test
     public void testBuild03() {
         final Node node = getNodeByIndex(net, 0, 4);
-        checkCluster(node, 5, true, new Integer[] { 4, 9, 14, 19, 24 });
+        checkCluster(node, 5, asSet(0,1), new Integer[] { 4, 9, 14, 19, 24 });
     }
 
     /**
@@ -84,23 +82,22 @@ public class TestCluster extends TestBase {
     @Test
     public void testBuild04() {
         final Node node = getNodeByIndex(net, 4, 0);
-        checkCluster(node, 3, false, new Integer[] { 20, 21, 22 });
+        checkCluster(node, 3, asSet(1), new Integer[] { 20, 21, 22 });
     }
 
     /**
      * Осуществляет проверку созданного кластера для переданного узла.
      * 
-     * @param node -
-     *          узел, для которого будет построен кластер
-     * @param size -
-     *          ожидаемый размер кластера
-     * @param percolation -
-     *          является ли кластер перколяционным
-     * @param nodeIDs -
-     *          идентификаторы узлов в кластере
+     * @param node
+     *            - узел, для которого будет построен кластер
+     * @param size
+     *            - ожидаемый размер кластера
+     * @param percolation
+     *            - является ли кластер перколяционным
+     * @param nodeIDs
+     *            - идентификаторы узлов в кластере
      */
-    private void checkCluster(Node node, int size, boolean percolation,
-            Integer... nodeIDs) {
+    private void checkCluster(Node node, int size, Set<Integer> bounds, Integer... nodeIDs) {
         Cluster cluster = new Cluster(node);
         cluster.build();
 
@@ -108,9 +105,9 @@ public class TestCluster extends TestBase {
                 "Размер кластера (%d) не равен ожидаемому (%d)", size, cluster
                         .size()), size, cluster.size());
 
-        assertEquals("Не совпало свойство перколяционности кластера",
-                percolation, cluster.isPercolation());
-
+        assertEquals("Границы кластера (%s) не равны ожидаемым (%s)", 
+                bounds,cluster.getBounds());
+        
         checkNodes(cluster, nodeIDs);
     }
 
@@ -122,7 +119,8 @@ public class TestCluster extends TestBase {
      * @param nodeIndex
      * @return
      */
-    private Node getNodeByIndex(RegularLattice net, int layerIndex, int nodeIndex) {
+    private Node getNodeByIndex(RegularLattice net, int layerIndex,
+            int nodeIndex) {
         return net.getLayers().get(layerIndex).getNode(nodeIndex);
     }
 

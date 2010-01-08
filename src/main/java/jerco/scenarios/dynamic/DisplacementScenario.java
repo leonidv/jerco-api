@@ -366,11 +366,11 @@ public class DisplacementScenario extends Scenario {
      * @param nextNode
      */
     private void chekBoundsNode(Node nextNode) {
-        if (nextNode.isInBottomBound()) {
+        if ((nextNode.isInBound()) && (nextNode.getBound() == 1)) {
             hasNodeInBottom = true;
         }
 
-        if (nextNode.isInTopBound()) {
+        if (nextNode.isInBound() && (nextNode.getBound() == 0)) {
             hasNodeInTop = true;
         }
     }

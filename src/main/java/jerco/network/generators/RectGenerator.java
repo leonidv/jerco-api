@@ -47,12 +47,12 @@ public final class RectGenerator extends BaseGenerator implements NetGenerator {
 
         // Устанавливаем у узлов признак нахождения в верхнем слое
         for (Node node : layers.get(0)) {
-            node.setInTopBound(true);
+            node.setBound(0);
         }
 
         // Устанавливаем у узлов признак нахожднеия в нижнем слое
         for (Node node : layers.get(layers.size() - 1)) {
-            node.setInBottomBound(true);
+            node.setBound(1);
         }
 
         return layers;
