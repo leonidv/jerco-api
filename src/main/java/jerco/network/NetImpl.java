@@ -4,10 +4,14 @@ import static jerco.Constants.DOUBLE_PRECISION;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Описывает сеть состояющую из множества узлов. Реализует операции заражения и
@@ -20,11 +24,12 @@ import java.util.Set;
  * 
  */
 class NetImpl implements Net {
+    private static final Logger LOG = LoggerFactory.getLogger(NetImpl.class);
 
     /**
      * Множество узлов, которые представляют собой сеть.
      */
-    protected Set<Node> nodes;
+    protected Set<Node> nodes = new HashSet<Node>();
 
     /**
      * Вероятность заражения сети
@@ -34,12 +39,12 @@ class NetImpl implements Net {
     /**
      * Кластеры в сети
      */
-    protected List<Cluster> clusters;
+    protected List<Cluster> clusters = new ArrayList<Cluster>();
 
     /**
      * Границы в сети.
      */
-    private Set<Integer> bounds;
+    private Set<Integer> bounds = new HashSet<Integer>();
 
     /**
      * Метод нужен чтобы сильно не ломать RegularLattice
@@ -110,6 +115,7 @@ class NetImpl implements Net {
      * кластеров, а все узлы помечаются как не находящиеся в каком-либо кластере
      */
     public void resetClusters() {
+        LOG.debug("reset clusters");
         clusters = new ArrayList<Cluster>();
         for (Node node : this) {
             node.setInCluster(false);
@@ -127,6 +133,7 @@ class NetImpl implements Net {
      * Осуществляет сбор флага "посещено" у всех узлов сети.
      */
     public void resetVisited() {
+        LOG.debug("reset visited");
         for (Node node : this) {
             node.setVisited(false);
         }
@@ -137,6 +144,7 @@ class NetImpl implements Net {
      * приводит к сбросу списка кластеров в сети
      */
     public void resetInfected() {
+        LOG.debug("reset infected");
         for (Node node : this) {
             node.setInfected(false);
         }
@@ -155,6 +163,8 @@ class NetImpl implements Net {
      */
     public boolean hasPercolationCluster() {
         if (bounds.isEmpty()) {
+            LOG.warn("Your try to check percolatin cluster, "
+                    + "but net doesn't have bounds");
             return false;
         }
         
@@ -163,7 +173,7 @@ class NetImpl implements Net {
                 return true;
             }
         }
-        
+
         return false;
     }
 

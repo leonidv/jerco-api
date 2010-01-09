@@ -102,10 +102,10 @@ public class TestCluster extends TestBase {
         cluster.build();
 
         assertEquals(String.format(
-                "Размер кластера (%d) не равен ожидаемому (%d)", size, cluster
+                "Размер кластера не равен ожидаемому", size, cluster
                         .size()), size, cluster.size());
 
-        assertEquals("Границы кластера (%s) не равны ожидаемым (%s)", 
+        assertEquals("Границы кластера не равны ожидаемым", 
                 bounds,cluster.getBounds());
         
         checkNodes(cluster, nodeIDs);

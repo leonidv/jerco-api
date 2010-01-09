@@ -6,12 +6,10 @@ import java.util.List;
 import jerco.network.Layer;
 import jerco.network.Node;
 
-
 /**
- * Create rectangle net.
- * <p>
- * This class is stateless, so you can use it as Singleton.
- * 
+ * Генератор создания прямоугольной реетки. Первый созданный слой является
+ * верхней границей, последний созданный слой является нижней границей.
+ *
  * @author Leonid Vygovskiy
  * 
  */
@@ -47,12 +45,12 @@ public final class RectGenerator extends BaseGenerator implements NetGenerator {
 
         // Устанавливаем у узлов признак нахождения в верхнем слое
         for (Node node : layers.get(0)) {
-            node.setBound(0);
+            node.setBound(NetGenerator.TOP_BOUNDS);
         }
 
         // Устанавливаем у узлов признак нахожднеия в нижнем слое
         for (Node node : layers.get(layers.size() - 1)) {
-            node.setBound(1);
+            node.setBound(NetGenerator.BOTTOM_BOUNDS);
         }
 
         return layers;
@@ -65,7 +63,7 @@ public final class RectGenerator extends BaseGenerator implements NetGenerator {
     public boolean equals(Object obj) {
         return obj.getClass() == this.getClass();
     }
-    
+
     /**
      * {@inheritDoc}
      */

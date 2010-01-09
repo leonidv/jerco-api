@@ -62,7 +62,7 @@ public class TestRectGenerator extends TestBase {
         List<Layer> layers = net.getLayers();
         checkNetStructure(layers, 1, 1);
         checkLayerLength(layers.get(0).toArray(), 1);
-        
+        checkBounds(NetGenerator.BOTTOM_BOUNDS, layers.get(0).toArray());
     }
 
     /**
@@ -87,10 +87,12 @@ public class TestRectGenerator extends TestBase {
         Node[] nodes = checkLayerLength(layers.get(0).toArray(), 2);
         checkNode(nodes[0], 0, new Integer[] { 1, 2 });
         checkNode(nodes[1], 1, new Integer[] { 0, 3 });
-
+        checkBounds(NetGenerator.TOP_BOUNDS, nodes);
+        
         nodes = checkLayerLength(layers.get(1).toArray(), 2);
         checkNode(nodes[0], 2, new Integer[] { 0, 3 });
         checkNode(nodes[1], 3, new Integer[] { 2, 1 });
+        checkBounds(NetGenerator.BOTTOM_BOUNDS, nodes);
     }
 
     /**
@@ -116,8 +118,8 @@ public class TestRectGenerator extends TestBase {
         Node[] nodes = checkLayerLength(layers.get(0).toArray(), 3);
         checkNode(nodes[0], 0, new Integer[] { 1, 3 });
         checkNode(nodes[1], 1, new Integer[] { 0, 2, 4 });
-
         checkNode(nodes[2], 2, new Integer[] { 1, 5 });
+        checkBounds(NetGenerator.TOP_BOUNDS, nodes);
 
         nodes = checkLayerLength(layers.get(1).toArray(), 3);
         checkNode(nodes[0], 3, new Integer[] { 0, 4, 6 });
@@ -128,21 +130,7 @@ public class TestRectGenerator extends TestBase {
         checkNode(nodes[0], 6, new Integer[] { 3, 7 });
         checkNode(nodes[1], 7, new Integer[] { 6, 4, 8 });
         checkNode(nodes[2], 8, new Integer[] { 7, 5 });
+        checkBounds(NetGenerator.BOTTOM_BOUNDS, nodes);
     }
     
-    @Test
-    public void testBoundaryNodes() {
-        structureInfo.setWidth(3);
-        structureInfo.setHeight(3);        
-        RegularLattice net = new RegularLattice(structureInfo); 
-        for (Node node : net.getLayers().get(0)) {
-            assertTrue(node.getBound() == 0);
-        }
-        
-        for (Node node : net.getLayers().get(2)) {
-            assertTrue(node.getBound() == 1);
-        }
-        
-        
-    }
 }

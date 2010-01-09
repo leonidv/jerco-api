@@ -24,7 +24,7 @@ public class TestUtils {
      *            имя файла относительного каталога с тестовыми файлами.
      * @return
      */
-    static public  File loadTestFile(String fileName) {
+    static public File loadTestFile(String fileName) {
         return new File(TEST_FILES_FOLDER + fileName);
     }
 
@@ -48,6 +48,13 @@ public class TestUtils {
         assertThat("Количество слоев в сети", layers.size(), is(layersCount));
         assertThat("Количество узлов в сети", Node.getIdCounter(),
                 is(nodesCount));
+    }
+
+    public static void checkBounds(int bound, Node... nodes) {
+        for (Node node : nodes) {
+            assertThat(node.isInBound(), is(true));
+            assertThat(node.getBound(), is(bound));
+        }
     }
 
     /**
@@ -101,21 +108,21 @@ public class TestUtils {
      * @param linkedWith
      *            - список идентификаторов связанных с узлом
      */
-    
+
     public static void checkNodes(Iterator<Node> iterator, Integer... nodesIDs) {
-        List<Integer> nodeIDs = convertArrayToModifiableList(nodesIDs);
-    
+        List<Integer> nodeIDs = asList(nodesIDs);
+
         /*
          * Проверяем на лишнии связи
          */
         while (iterator.hasNext()) {
             Node node = iterator.next();
-    
+
             boolean removed = nodeIDs.remove(new Integer(node.getId()));
             assertTrue(String.format("Есть лишний узел с идентификатором '%d'",
                     node.getId()), removed);
         }
-    
+
         /*
          * Проверяем на отсутствующие связи
          */
@@ -126,7 +133,7 @@ public class TestUtils {
         assertTrue(String.format(
                 "Нет необходимого узлов с идентификаторами:%s'", badLinks),
                 nodeIDs.size() == 0);
-    
+
     }
 
     /**
@@ -141,21 +148,22 @@ public class TestUtils {
      *            - массив данных, преобразовываемых в список
      * @return - изменяемый список (LinkedList) с данными массива
      */
-    public static <T> List<T> convertArrayToModifiableList(T... data) {
+    public static <T> List<T> asList(T... data) {
         List<T> result = new LinkedList<T>();
         for (T var : data) {
             result.add(var);
         }
         return result;
     }
-    
+
     /**
      * Преобразует полученные данные в множество.
+     * 
      * @param <T>
      * @param data
      * @return
      */
-    public static <T> Set<T> asSet(T ... data) {
+    public static <T> Set<T> asSet(T... data) {
         Set<T> set = new HashSet<T>();
         for (T d : data) {
             set.add(d);

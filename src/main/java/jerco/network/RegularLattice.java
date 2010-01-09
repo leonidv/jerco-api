@@ -312,7 +312,7 @@ public class RegularLattice extends NetImpl {
         }
 
         scanner.close();
-
+        
         /*
          * Осуществляем поиск кластеров
          */
@@ -369,4 +369,11 @@ public class RegularLattice extends NetImpl {
             out.println(cluster);
         }
     }
+
+    @Override
+    public Iterator<Node> iterator() {
+        return new NodeIterator();
+    }
+    
+    
 }

@@ -10,7 +10,8 @@ import jerco.network.Layer;
 import jerco.network.Node;
 
 /**
- * Генератор решетки Кагоме.
+ * Генератор решетки Кагоме. Первый слой является верхней границей, последний
+ * слой ‒ нижней.
  * <p>
  * Для более подробной информации об алгоритме смотрите <a href=
  * "http://vygovskiy.com/xwiki/bin/view/Аспирантура/Генерация+регулярных+структур"
@@ -33,7 +34,7 @@ public class KagomeGenerator implements NetGenerator {
         Layer layer = new Layer(width);
         layer.linkNeighbors();
         layers.add(layer);
-        
+
         for (int layerNumber = 1; layerNumber < height; layerNumber++) {
             Layer previousLayer = layers.get(layerNumber - 1);
             switch (getBasePartLayerNumber(layerNumber)) {
@@ -51,11 +52,11 @@ public class KagomeGenerator implements NetGenerator {
         }
 
         for (Node node : layers.get(0)) {
-            node.setBound(0);
+            node.setBound(NetGenerator.TOP_BOUNDS);
         }
 
         for (Node node : layers.get(layers.size() - 1)) {
-            node.setBound(1);
+            node.setBound(NetGenerator.BOTTOM_BOUNDS);
         }
 
         return layers;

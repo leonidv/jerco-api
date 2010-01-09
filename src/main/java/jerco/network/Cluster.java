@@ -31,17 +31,17 @@ import java.util.Set;
  * @author leonidv
  */
 public class Cluster implements Iterable<Node>, Comparable<Cluster> {
-    
+
     /**
      * Множество узлов в кластере.
      */
     private List<Node> nodes = new ArrayList<Node>();
-    
+
     /**
      * Множестов границ, узлов из которых имеет кластер.
      */
     private Set<Integer> bounds = new HashSet<Integer>();
-    
+
     /**
      * Создает кластер. Кластер всегда состоит из одного узла.
      * 
@@ -77,6 +77,10 @@ public class Cluster implements Iterable<Node>, Comparable<Cluster> {
         }
         nodes.add(node);
         node.setInCluster(true);
+        
+        if (node.isInBound()) {
+            bounds.add(node.getBound());
+        }
     }
 
     /**
@@ -95,10 +99,6 @@ public class Cluster implements Iterable<Node>, Comparable<Cluster> {
                 // может быть связан с несколькими узлами в одном кластере
                 if (linkedNode.isInfected() && !linkedNode.isInCluster()) {
                     addToCluster(linkedNode);
-                    
-                    if (linkedNode.isInBound()) {
-                        bounds.add(linkedNode.getBound());
-                    }
                 }
             }
         }
@@ -114,9 +114,9 @@ public class Cluster implements Iterable<Node>, Comparable<Cluster> {
         return nodes.size();
     }
 
-    
     /**
      * Возвращает неизменяемый список границ.
+     * 
      * @return the bounds
      */
     public Set<Integer> getBounds() {

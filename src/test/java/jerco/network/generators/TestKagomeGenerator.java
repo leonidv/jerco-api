@@ -26,7 +26,8 @@ public class TestKagomeGenerator extends TestBase {
         checkNode(layer.getNode(0), 0, new Integer[] { 1, 3 });
         checkNode(layer.getNode(1), 1, new Integer[] { 0, 3, 2 });
         checkNode(layer.getNode(2), 2, new Integer[] { 1 });
-
+        checkBounds(NetGenerator.TOP_BOUNDS, layer.toArray());
+        
         layer = layers.get(1);
         checkNode(layer.getNode(0), 3, new Integer[] { 0, 1, 4, 5 });
 
@@ -42,6 +43,7 @@ public class TestKagomeGenerator extends TestBase {
         checkNode(layer.getNode(0), 8, new Integer[] { 9 });
         checkNode(layer.getNode(1), 9, new Integer[] { 8, 7, 10 });
         checkNode(layer.getNode(2), 10, new Integer[] { 7, 9 });
+        checkBounds(NetGenerator.BOTTOM_BOUNDS, layer.toArray());
     }
 
     @Test

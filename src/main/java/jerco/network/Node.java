@@ -182,6 +182,7 @@ public class Node implements Iterable<Node>, Comparable<Node> {
 
     /**
      * Возвращает идентификатор узла
+     * 
      * @return
      */
     public int getId() {
@@ -330,9 +331,12 @@ public class Node implements Iterable<Node>, Comparable<Node> {
 
     @Override
     public String toString() {
-        return String.format(
-                "Node id = %d, infected = %b, visited = %b, substance = %d",
-                id, infected, visited, substance);
+        return "Node [id=" + id + ", infected=" + infected + ", probability="
+                + probability + ", visited=" + visited + ", inBound=" + inBound
+                + ", bound=" + bound + ", inCluster=" + inCluster
+                + ", inPercolationCluster=" + inPercolationCluster
+                + ", linkedNodes.size=" + linkedNodes.size() + ", substance="
+                + substance + "]";
     }
 
     @Override
