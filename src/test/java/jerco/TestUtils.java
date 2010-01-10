@@ -69,9 +69,7 @@ public class TestUtils {
      *            - array with Ids of linked nodes.
      */
     public static void checkNode(Node node, int nodeId, Integer... linkedWith) {
-        assertTrue(String.format(
-                "У узла не правильный идентификатор %d вместо %d",
-                node.getId(), nodeId), node.getId() == nodeId);
+        assertThat("Неправильный идентификатор узла", node.getId(), is(nodeId));
         checkNodes(node, linkedWith);
     }
 

@@ -2,10 +2,10 @@ package jerco.network;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import jxl.Cell;
 import jxl.Sheet;
@@ -21,6 +21,12 @@ import jxl.read.biff.WorkbookParser;
  * 
  */
 public class ExcelReader implements NetReader {
+    private static final int SHEET_BOUNDS_INDEX = 1;
+
+    private static final String SHEET_BOUNDS_NAME = "Ключевые узлы";
+
+    private static final int STRUCTURE_SHEET_INDEX = 0;
+
     private static final String STRUCTURE_SHEET_NAME = "Структура";
 
     private final File xls;
@@ -29,7 +35,11 @@ public class ExcelReader implements NetReader {
      * Содержит отобажение идентификаторов узлов на узлы. Нужно для быстрого
      * поиска узла по идентификатору в процессе построения.
      */
-    private final Map<Integer, Node> nodesIds = new TreeMap<Integer, Node>();
+    private final Map<Integer, Node> nodesIds = new HashMap<Integer, Node>();
+
+    private final Map<String, Node> nodesNames = new HashMap<String, Node>();
+
+    private Workbook workbook;
 
     public ExcelReader(String fileName) {
         this(new File(fileName));
@@ -41,10 +51,20 @@ public class ExcelReader implements NetReader {
 
     public void loadNetwork() throws BiffException, IOException {
         nodesIds.clear();
+        nodesNames.clear();
 
-        Workbook workbook = WorkbookParser.getWorkbook(xls);
-        Sheet sheet = getStructureSheet(workbook);
+        workbook = WorkbookParser.getWorkbook(xls);
+        
+        Sheet sheet = findSheet(STRUCTURE_SHEET_NAME, STRUCTURE_SHEET_INDEX);
+        readNodesNames(sheet);
+        loadStructure(sheet);
+        
+        sheet = findSheet(SHEET_BOUNDS_NAME, SHEET_BOUNDS_INDEX);
+        readBounds(sheet);
 
+    }
+
+    private void loadStructure(Sheet sheet) {
         for (int i = 1; i < sheet.getColumns(); i++) {
             Node a = getNode(i);
 
@@ -59,20 +79,55 @@ public class ExcelReader implements NetReader {
                 a.linkTo(b);
             }
         }
+    }
 
+    /**
+     * Считывает из листа структуры имена узлов и заполняет {@link #nodesNames}.
+     * 
+     * @param sheet
+     */
+    private void readNodesNames(Sheet sheet) {
+        Cell[] titleRow = sheet.getRow(0);
+        for (int i = 1; i < titleRow.length; i++) {
+            Node node = getNode(i);
+            nodesNames.put(titleRow[i].getContents(), node);
+        }
+    }
+
+    /**
+     * Считывает границы сети. Границы начинаются со второго столбика и в одной
+     * ячейки имя одного узла границы.
+     * 
+     * @param sheet
+     */
+    private void readBounds(Sheet sheet) {
+        for (int i = 1; i < sheet.getRows(); i++) {
+            Cell[] bound = sheet.getRow(i);
+            for (int j = 1; j < bound.length; j++) {
+                String name = bound[j].getContents();
+
+                if (name.isEmpty()) {
+                    continue;
+                }
+
+                Node node = nodesNames.get(name);
+                node.setBound(i-1);
+            }
+        }
     }
 
     /**
      * Возвращает лист со структурой сети. Это либо 0, либо первый с именем
      * "Структура".
+     * @param name TODO
+     * @param index TODO
      * 
-     * @param workbook
      * @return
      */
-    private Sheet getStructureSheet(Workbook workbook) {
+    private Sheet findSheet(String name, int index) {
         for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
             Sheet sheet = workbook.getSheet(i);
-            if (sheet.getName().equalsIgnoreCase(STRUCTURE_SHEET_NAME)) {
+            if (sheet.getName().equalsIgnoreCase(name)) {
                 return sheet;
             }
         }

@@ -33,14 +33,14 @@ public class TestExcelReader extends TestBase {
      * Тест проверяет связность, заданную на вкладке "структура". Также
      * используется не числовый символ для обозначения связи.
      * <p>
-     * Заданная структура сети:
+     * Заданная структура сети (* помечены ключевые узлы):
      * 
      * <pre>
-     *     1
+     *     1*
      *     │
      * 5‒‒‒6‒‒‒2
      *    ╱ ╲
-     *   4‒‒‒3
+     *   4‒‒‒3*
      * </pre>
      */
     @Test
@@ -56,5 +56,8 @@ public class TestExcelReader extends TestBase {
         checkNode(nodes.get(4), 5, new Integer[] { 6 });
 
         checkNode(nodes.get(5), 6, new Integer[] { 1, 2, 3, 4, 5 });
+        
+        checkBounds(0, nodes.get(0));
+        checkBounds(1, nodes.get(2));
     }
 }
