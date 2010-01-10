@@ -3,6 +3,9 @@ package jerco.network;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NavigableSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +77,7 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     final private int id;
 
     // Связанные с этим узлом узлы
-    private List<Node> linkedNodes = new ArrayList<Node>();
+    private NavigableSet<Node> linkedNodes = new TreeSet<Node>();
 
     // Флажок посещения узла
     private boolean visited;
