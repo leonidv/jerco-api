@@ -7,8 +7,9 @@ import jerco.network.RegularLattice.NodeIterator;
 
 /**
  * Описывает базовое понятие решетки и доступные с ней действия.
+ * 
  * @author Leonid Vygovskiy
- *
+ * 
  */
 public interface Net extends Iterable<Node> {
 
@@ -68,6 +69,17 @@ public interface Net extends Iterable<Node> {
      * @return
      */
     public boolean hasPercolationCluster();
+
+    /**
+     * Возвращает список найденных перколяционных кластеров. При этом, если
+     * поиск кластеров ({@link #hasPercolationCluster()} не производился, кидает
+     * иключение {@link IllegalStateException}.
+     * 
+     * @return
+     * @throws IllegalStateException
+     *             в случае, если поиск перколяционных кластеров не проводился.
+     */
+    public List<Cluster> getPercolationClusters() throws IllegalStateException;
 
     /**
      * Осуществляет полный сброс информации о сети.

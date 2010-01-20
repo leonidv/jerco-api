@@ -131,7 +131,7 @@ public class ExcelReader implements NetReader {
                 return sheet;
             }
         }
-        return workbook.getSheet(0);
+        return workbook.getSheet(index);
     }
 
     /**

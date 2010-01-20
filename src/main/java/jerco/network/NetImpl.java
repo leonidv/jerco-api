@@ -42,6 +42,11 @@ class NetImpl implements Net {
     protected List<Cluster> clusters = new ArrayList<Cluster>();
 
     /**
+     * Найденные перколяционные кластеры.
+     */
+    private List<Cluster> percolationClusters;
+
+    /**
      * Границы в сети.
      */
     private Set<Integer> bounds = new HashSet<Integer>();
@@ -117,6 +122,7 @@ class NetImpl implements Net {
     public void resetClusters() {
         LOG.debug("reset clusters");
         clusters = new ArrayList<Cluster>();
+        percolationClusters = null;
         for (Node node : this) {
             node.setInCluster(false);
         }
@@ -160,21 +166,37 @@ class NetImpl implements Net {
 
     /**
      * {@inheritDoc}
+     * 
+     * @throws IllegalStateException
+     *             в случае, если границы не были заданы.
      */
     public boolean hasPercolationCluster() {
         if (bounds.isEmpty()) {
-            LOG.warn("Your try to check percolatin cluster, "
-                    + "but net doesn't have bounds");
-            return false;
+            final String msg = "Your try to check percolatin cluster, "
+                    + "but net doesn't have bounds";
+            LOG.warn(msg);
+            throw new IllegalStateException(msg);
         }
-        
+
+        percolationClusters = new ArrayList<Cluster>(1);
         for (Cluster cluster : clusters) {
             if (cluster.getBounds().equals(bounds)) {
-                return true;
+                percolationClusters.add(cluster);
             }
         }
 
-        return false;
+        return !percolationClusters.isEmpty();
+    }
+
+    @Override
+    public List<Cluster> getPercolationClusters() throws IllegalStateException {
+        if (percolationClusters == null) {
+            throw new IllegalStateException(
+                    "You must to call hasPercolationCluster() before "
+                            + "call this method");
+        }
+
+        return percolationClusters;
     }
 
     /**

@@ -11,9 +11,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Ignore;
+
 import jerco.network.Layer;
 import jerco.network.Node;
 
+@Ignore
 public class TestUtils {
     public final static String TEST_FILES_FOLDER = "src/test/resources/";
 

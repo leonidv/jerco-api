@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import static jerco.TestUtils.*;
@@ -27,6 +29,9 @@ public class TestExcelReader extends TestBase {
 
         checkNode(nodes.get(0), 1, new Integer[] { 2 });
         checkNode(nodes.get(1), 2, new Integer[] { 1 });
+        
+        assertFalse(nodes.get(0).isInBound());
+        assertFalse(nodes.get(1).isInBound());
     }
 
     /**

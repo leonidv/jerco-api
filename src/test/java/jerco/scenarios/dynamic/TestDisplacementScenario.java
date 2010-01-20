@@ -12,6 +12,7 @@ import jerco.network.RegularLattice;
 import jerco.network.TestBase;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static jerco.TestUtils.*;
 
@@ -22,6 +23,7 @@ import static jerco.TestUtils.*;
  * @author leonidv
  * 
  */
+@Ignore
 public class TestDisplacementScenario extends TestBase {
     private RegularLattice net;
     private DisplacementScenario scenario;
