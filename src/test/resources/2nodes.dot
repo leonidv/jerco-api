@@ -1,0 +1,14 @@
+digraph {
+	node [
+		fontsize = "8"
+		shape = "circle"
+		width = "0.3"
+		height= "0.3"
+		margin= "0.01"
+	]
+	0 [label="0"];
+	1 [label="1"];
+	
+	1 -> 0;
+	0 -> 1;
+}

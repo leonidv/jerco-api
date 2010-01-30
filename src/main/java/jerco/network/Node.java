@@ -1,6 +1,7 @@
 package jerco.network;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NavigableSet;
@@ -181,6 +182,23 @@ public class Node implements Iterable<Node>, Comparable<Node> {
      */
     public Iterator<Node> iterator() {
         return linkedNodes.iterator();
+    }
+
+    /**
+     * Возвращает неизменяемое множество всех связанных узлов.
+     * 
+     * @return the linkedNodes
+     */
+    public Set<Node> getLinkedNodes() {
+        return Collections.unmodifiableSet(linkedNodes);
+    }
+
+    /**
+     * @param linkedNodes
+     *            the linkedNodes to set
+     */
+    public void setLinkedNodes(NavigableSet<Node> linkedNodes) {
+        this.linkedNodes = linkedNodes;
     }
 
     /**

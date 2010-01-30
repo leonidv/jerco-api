@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import jerco.TestUtils;
 import jerco.network.RegularLattice.BadNetFileFormatException;
 import jerco.network.generators.RectGenerator;
 import static jerco.TestUtils.*;
@@ -22,21 +23,20 @@ import static jerco.TestUtils.*;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class TestNet extends TestBase {
     private NetStructureInfo structureInfo;
     private RegularLattice net;
-    
+
     @Before
     public void initStructurInfo() {
         structureInfo = new NetStructureInfo();
         structureInfo.setGenerator(RectGenerator.INSTANCE);
         structureInfo.setWidth(3);
         structureInfo.setHeight(3);
-        
+
         net = new RegularLattice(structureInfo);
     }
-    
+
     /**
      * Проверяем различные комбинации ширины и высоты генерируемой решетки на
      * правильность возвращаемых значений. Т.е. чтобы если попросили решетку
@@ -45,9 +45,9 @@ public class TestNet extends TestBase {
     @Test
     public void testGoodWidthHeight() {
         RegularLattice net = new RegularLattice();
-        
+
         structureInfo.setWidth(3);
-        structureInfo.setHeight(3);        
+        structureInfo.setHeight(3);
         net.generate(structureInfo);
         assertSame(net.getWidth(), 3);
         assertSame(net.getHeight(), 3);
@@ -152,7 +152,7 @@ public class TestNet extends TestBase {
 
     @Test
     public void testSaveNotInfected3x4() throws FileNotFoundException {
-        File file = new File("target/test-temp-results/not infected 3x3.txt");
+        File file = new File(TestUtils.TEST_TEMP_DIR + "/not infected 3x3.txt");
         System.out.println(file.getAbsolutePath());
         structureInfo.setHeight(4);
         net = new RegularLattice(structureInfo);
@@ -180,7 +180,7 @@ public class TestNet extends TestBase {
 
     @Test
     public void testSaveInfected3x4() throws FileNotFoundException {
-        File file = new File("target/test-temp-results/infected 3x4.txt");
+        File file = new File(TestUtils.TEST_TEMP_DIR + "/infected 3x4.txt");
         System.out.println(file.getAbsolutePath());
         structureInfo.setHeight(4);
         net = new RegularLattice(structureInfo);
@@ -209,7 +209,7 @@ public class TestNet extends TestBase {
 
     @Test
     public void testSaveNotInfected1x1() throws FileNotFoundException {
-        File file = new File("target/test-temp-results/not infected 1x1.txt");
+        File file = new File(TestUtils.TEST_TEMP_DIR + "/not infected 1x1.txt");
         System.out.println(file.getAbsolutePath());
         structureInfo.setWidth(1);
         structureInfo.setHeight(1);
@@ -238,8 +238,9 @@ public class TestNet extends TestBase {
 
     @Test
     public void testSaveAndLoadInfected100x100() throws FileNotFoundException {
-        File file = new File("target/test-temp-results/infected save and load 100x100.txt");
-        
+        File file = new File(TestUtils.TEST_TEMP_DIR
+                + "/infected save and load 100x100.txt");
+
         structureInfo.setWidth(100);
         structureInfo.setHeight(100);
         RegularLattice a = new RegularLattice(structureInfo);
@@ -277,15 +278,15 @@ public class TestNet extends TestBase {
         }
 
     }
-    
+
     @Test
     public void testFindClusters() {
         RegularLattice net = new RegularLattice();
         try {
             net.load(loadTestFile(FILE_CLUSTER_5X5));
-            //net.printClusters(System.out);
+            // net.printClusters(System.out);
             assertSame(4, net.findClusters());
-            
+
             assertSame(1, net.getClusters().get(0).size());
             assertSame(3, net.getClusters().get(1).size());
             assertSame(5, net.getClusters().get(2).size());

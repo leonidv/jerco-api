@@ -1,6 +1,9 @@
-package jerco.network;
+package jerco.network.io;
 
 import java.util.Set;
+
+import jerco.network.Node;
+
 
 /**
  * Интерфейс определяет считывателя сети.

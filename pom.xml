@@ -37,11 +37,11 @@
 			<artifactId>jxl</artifactId>
 			<version>2.6.3</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>com.google.collections</groupId>-->
-<!--			<artifactId>google-collections</artifactId>-->
-<!--			<version>1.0</version>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>[2.3.16,2.4)</version>
+		</dependency>
 	</dependencies>
 	<reporting>
 		<plugins>

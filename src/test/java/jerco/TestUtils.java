@@ -19,6 +19,7 @@ import jerco.network.Node;
 @Ignore
 public class TestUtils {
     public final static String TEST_FILES_FOLDER = "src/test/resources/";
+    public static final String TEST_TEMP_DIR = "target/test-temp-results";
 
     /**
      * Считывает файл из каталога с тестовыми файлами.

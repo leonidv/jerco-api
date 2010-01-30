@@ -7,8 +7,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import jerco.network.io.NetReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * @author Leonid Vygovskiy
  * 
  */
-class NetImpl implements Net {
+public class NetImpl implements Net {
     private static final Logger LOG = LoggerFactory.getLogger(NetImpl.class);
 
     /**

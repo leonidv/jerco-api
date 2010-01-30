@@ -1,9 +1,12 @@
-package jerco.network;
+package jerco.network.io;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import jerco.network.Node;
+import jerco.network.TestBase;
 
 import static org.junit.Assert.*;
 

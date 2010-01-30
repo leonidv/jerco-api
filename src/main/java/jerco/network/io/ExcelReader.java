@@ -1,4 +1,4 @@
-package jerco.network;
+package jerco.network.io;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import jerco.network.Node;
+
 
 import jxl.Cell;
 import jxl.Sheet;
