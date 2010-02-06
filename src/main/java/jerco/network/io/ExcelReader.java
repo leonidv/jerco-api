@@ -79,7 +79,7 @@ public class ExcelReader implements NetReader {
                 }
 
                 Node b = getNode(j);
-                a.linkTo(b);
+                Node.linkNodes(a, b);
             }
         }
     }
