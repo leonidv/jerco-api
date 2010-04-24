@@ -62,7 +62,7 @@ public class NetImpl implements Net {
 
     public NetImpl(NetReader reader) {
         nodes = reader.read();
-        findBoundsPrivate();
+        findBounds();
     }
 
     /**
@@ -70,7 +70,7 @@ public class NetImpl implements Net {
      * <p>
      * private-метод для вызова в конструкторе.
      */
-    final protected void findBoundsPrivate() {
+    final protected void findBounds() {
         for (Node node : this) {
             if (node.isInBound()) {
                 bounds.add(node.getBound());

@@ -130,6 +130,7 @@ public class RegularLattice extends NetImpl {
         
         this.structureInfo = new NetStructureInfo(structureInfo);
         layers = getGenerator().generate(getWidth(), getHeight());
+        findBounds();
         generated = true;   
     }
 

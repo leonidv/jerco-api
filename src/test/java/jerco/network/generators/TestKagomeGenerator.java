@@ -82,5 +82,11 @@ public class TestKagomeGenerator extends TestBase {
         checkNode(layer.getNode(3), 17, new Integer[] { 16, 13, 18 });
         checkNode(layer.getNode(4), 18, new Integer[] { 17, 13 });
     }
+    
+    @Test
+    public void test100x100 () {
+        KagomeGenerator generator = new KagomeGenerator();
+        generator.generate(11, 11);
+    }
 
 }

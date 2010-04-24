@@ -137,7 +137,7 @@ public class KagomeGenerator implements NetGenerator {
 
     @Override
     public String getName() {
-        return "Решетка Кагоме";
+        return "Кагоме";
     }
 
 }
