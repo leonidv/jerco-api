@@ -14,51 +14,43 @@ class TriangGenerator extends BaseGenerator implements NetGenerator {
     public TriangGenerator () {
 
     }
-    protected void linkLayers(Layer a, Layer b) {
+    protected void addlinkLayers(Layer a, Layer b) {
         assert (a.size() == b.size()) : "Количество узлов в слоях не равно";
         int size = a.size();
-        for (int i = 0; i < size; i++) {
-            Node.linkNodes(a.getNode(i), b.getNode(i));
-        }
-        for (int i = 0; i < size-1; i++) {
+               for (int i = 0; i < size-1; i++) {
             Node.linkNodes(a.getNode(i), b.getNode(i+1));// соединяем по диагонали
         }
         
     }  
     public List<Layer> generate(int width, int height) {
-        List<Layer> layers = new ArrayList<Layer>(height);
+        List<Layer> Rlayers ;
+        List<Layer> Tlayers=new ArrayList<Layer>() ;
 
-        /*
-         * Create first table layer.
-         */
-        Layer currentLayer = new Layer(width);
-        currentLayer.linkNeighbors();
-        layers.add(currentLayer);
-
-        /*
-         * Обрабатываем все последующие слои. Алгоритм: 1. Создать новый слой и
-         * сделать его текущим. 2. Попарно соединить точки нового слоя с
-         * предыдущим. 3. Соединить соседние точки в текущем слое
-         */
-        for (int i = 0; i < height - 1; i++) {
+        RectGenerator rect = new RectGenerator();
+        Rlayers = rect.generate(width, height);
+        // теперь добавить дополнительную связь
+        
+        
+       Layer currentLayer=Rlayers.get(0);
+      
+        for (int i = 1; i < height - 1; i++) {
             Layer prevousLayer = currentLayer;
-            currentLayer = new Layer(width);
-            linkLayers(prevousLayer, currentLayer);
-            currentLayer.linkNeighbors();
-            layers.add(currentLayer);
+            currentLayer = Rlayers.get(i);
+            addlinkLayers(prevousLayer, currentLayer);
+            Tlayers.add(currentLayer);
         }
 
         // Устанавливаем у узлов признак нахождения в верхнем слое
-        for (Node node : layers.get(0)) {
+        for (Node node : Tlayers.get(0)) {
             node.setBound(NetGenerator.TOP_BOUNDS);
         }
 
         // Устанавливаем у узлов признак нахожднеия в нижнем слое
-        for (Node node : layers.get(layers.size() - 1)) {
+        for (Node node : Tlayers.get(Tlayers.size() - 1)) {
             node.setBound(NetGenerator.BOTTOM_BOUNDS);
         }
 
-        return layers;
+        return Tlayers;
     }
 
     /**
