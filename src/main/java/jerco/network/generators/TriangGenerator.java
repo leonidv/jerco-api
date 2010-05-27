@@ -8,7 +8,7 @@ import jerco.network.Node;
 
 
 
-class TriangGenerator extends BaseGenerator implements NetGenerator {
+class TriangGenerator  implements NetGenerator {
 	final public static TriangGenerator  INSTANCE = new TriangGenerator ();
      
     public TriangGenerator () {
@@ -23,34 +23,26 @@ class TriangGenerator extends BaseGenerator implements NetGenerator {
         
     }  
     public List<Layer> generate(int width, int height) {
-        List<Layer> Rlayers ;
-        List<Layer> Tlayers=new ArrayList<Layer>() ;
-
-        RectGenerator rect = new RectGenerator();
-        Rlayers = rect.generate(width, height);
+    	List<Layer> Tring = RectGenerator.INSTANCE.generate(width, height);
         // теперь добавить дополнительную связь
         
         
-       Layer currentLayer=Rlayers.get(0);
-      
-        for (int i = 1; i < height - 1; i++) {
-            Layer prevousLayer = currentLayer;
-            currentLayer = Rlayers.get(i);
-            addlinkLayers(prevousLayer, currentLayer);
-            Tlayers.add(currentLayer);
+       
+        for (int i = 0; i < height; i++) {
+            addlinkLayers(Tring.get(i), Tring.get(i+1));
         }
 
         // Устанавливаем у узлов признак нахождения в верхнем слое
-        for (Node node : Tlayers.get(0)) {
+        for (Node node : Tring.get(0)) {
             node.setBound(NetGenerator.TOP_BOUNDS);
         }
 
         // Устанавливаем у узлов признак нахожднеия в нижнем слое
-        for (Node node : Tlayers.get(Tlayers.size() - 1)) {
+        for (Node node : Tring.get(Tring.size() - 1)) {
             node.setBound(NetGenerator.BOTTOM_BOUNDS);
         }
 
-        return Tlayers;
+        return Tring;
     }
 
     /**
