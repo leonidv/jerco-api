@@ -38,8 +38,8 @@ private NetStructureInfo structureInfo;
         Layer layerA = new Layer(3);
         Layer layerB = new Layer(3);
 
-        BaseGenerator generator = TriangGenerator.INSTANCE;
-        generator.linkLayers(layerA, layerB);
+        TriangGenerator generator = TriangGenerator.INSTANCE;
+        generator.addlinkLayers(layerA, layerB);
 
         checkNode(layerA.getNode(0), 0, new Integer[] { 3 });
         checkNode(layerA.getNode(1), 1, new Integer[] { 4 });
