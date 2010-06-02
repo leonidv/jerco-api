@@ -82,6 +82,8 @@ public class TestRectGenerator extends TestBase {
         RegularLattice net = new RegularLattice(structureInfo);
 
         List<Layer> layers = net.getLayers();
+        RegularWrapper wraps= new LeftRightBoundsWrapper();
+        wraps.wrap(layers);
         checkNetStructure(layers, 2, 4);
 
         Node[] nodes = checkLayerLength(layers.get(0).toArray(), 2);
@@ -117,6 +119,8 @@ public class TestRectGenerator extends TestBase {
         RegularLattice net = new RegularLattice(structureInfo);
 
         List<Layer> layers = net.getLayers();
+        RegularWrapper wraps= new LeftRightBoundsWrapper();
+        wraps.wrap(layers);
         checkNetStructure(layers, 3, 9);
 
         Node[] nodes = checkLayerLength(layers.get(0).toArray(), 3);
