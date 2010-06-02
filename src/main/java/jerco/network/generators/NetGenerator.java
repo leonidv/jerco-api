@@ -20,7 +20,17 @@ public interface NetGenerator {
      * Константа для обозначения нижней границы.
      */
     public static final int BOTTOM_BOUNDS = 1;
-
+    
+    /**
+     * Константа для обозначения нижней границы.
+     */
+    public static final int LEFT_BOUNDS = 2;
+    
+    /**
+     * Константа для обозначения нижней границы.
+     */
+    public static final int RIGHT_BOUNDS = 3;
+    
     /**
      * @param width
      *            - ширина решетки

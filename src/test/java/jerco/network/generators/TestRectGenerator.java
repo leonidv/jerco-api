@@ -88,11 +88,15 @@ public class TestRectGenerator extends TestBase {
         checkNode(nodes[0], 0, new Integer[] { 1, 2 });
         checkNode(nodes[1], 1, new Integer[] { 0, 3 });
         checkBounds(NetGenerator.TOP_BOUNDS, nodes);
+        checkBounds(NetGenerator.LEFT_BOUNDS, nodes);
+        checkBounds(NetGenerator.RIGHT_BOUNDS, nodes);
         
         nodes = checkLayerLength(layers.get(1).toArray(), 2);
         checkNode(nodes[0], 2, new Integer[] { 0, 3 });
         checkNode(nodes[1], 3, new Integer[] { 2, 1 });
         checkBounds(NetGenerator.BOTTOM_BOUNDS, nodes);
+        checkBounds(NetGenerator.LEFT_BOUNDS, nodes);
+        checkBounds(NetGenerator.RIGHT_BOUNDS, nodes);
     }
 
     /**
@@ -120,17 +124,23 @@ public class TestRectGenerator extends TestBase {
         checkNode(nodes[1], 1, new Integer[] { 0, 2, 4 });
         checkNode(nodes[2], 2, new Integer[] { 1, 5 });
         checkBounds(NetGenerator.TOP_BOUNDS, nodes);
+        checkBounds(NetGenerator.LEFT_BOUNDS, nodes);
+        checkBounds(NetGenerator.RIGHT_BOUNDS, nodes);
 
         nodes = checkLayerLength(layers.get(1).toArray(), 3);
         checkNode(nodes[0], 3, new Integer[] { 0, 4, 6 });
         checkNode(nodes[1], 4, new Integer[] { 1, 3, 5, 7 });
         checkNode(nodes[2], 5, new Integer[] { 2, 4, 8 });
+        checkBounds(NetGenerator.LEFT_BOUNDS, nodes);
+        checkBounds(NetGenerator.RIGHT_BOUNDS, nodes);
 
         nodes = checkLayerLength(layers.get(2).toArray(), 3);
         checkNode(nodes[0], 6, new Integer[] { 3, 7 });
         checkNode(nodes[1], 7, new Integer[] { 6, 4, 8 });
         checkNode(nodes[2], 8, new Integer[] { 7, 5 });
         checkBounds(NetGenerator.BOTTOM_BOUNDS, nodes);
+        checkBounds(NetGenerator.LEFT_BOUNDS, nodes);
+        checkBounds(NetGenerator.RIGHT_BOUNDS, nodes);
     }
     
 }

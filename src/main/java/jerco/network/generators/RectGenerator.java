@@ -52,8 +52,16 @@ public final class RectGenerator extends BaseGenerator implements NetGenerator {
         for (Node node : layers.get(layers.size() - 1)) {
             node.setBound(NetGenerator.BOTTOM_BOUNDS);
         }
-
-        return layers;
+        // Устанавливаем у узлов признак нахождения в левой и правой границе границе
+       for (Layer tlayer: layers)
+       {
+    	   tlayer.getLeftmost().setBound(NetGenerator.LEFT_BOUNDS);
+    	   tlayer.getRightmost().setBound(NetGenerator.RIGHT_BOUNDS);
+       }
+       
+         
+    	   
+    	   return layers;
     }
 
     /**
