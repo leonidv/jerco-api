@@ -54,8 +54,7 @@ public final class RectGenerator extends BaseGenerator implements NetGenerator {
             node.setBound(NetGenerator.BOTTOM_BOUNDS);
         }
         
-       RegularWrapper wraps= new LeftRightBoundsWrapper();
-       wraps.wrap(layers);
+       
          
     	   
     	   return layers;
