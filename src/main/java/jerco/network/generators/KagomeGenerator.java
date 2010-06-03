@@ -40,11 +40,11 @@ public class KagomeGenerator implements NetGenerator {
 			switch (getBasePartLayerNumber(layerNumber)) {
 			case 3:
 			case 5:
-			layer = createLinkedLayer(layerNumber, previousLayer, width);
+				layer = createLinkedLayer(layerNumber, previousLayer, width);
 				break;
 			case 2:
 			case 4:
-			case 1:	
+			case 1:
 				layer = createRareLevel(layerNumber, previousLayer, width);
 				break;
 			}
@@ -116,7 +116,8 @@ public class KagomeGenerator implements NetGenerator {
 
 		Layer layer;
 		int addition;
-		if (getBasePartLayerNumber(layerNumber) == 2 || getBasePartLayerNumber(layerNumber) == 1) {
+		if (getBasePartLayerNumber(layerNumber) == 2
+				|| getBasePartLayerNumber(layerNumber) == 1) {
 			addition = 0;
 			layer = new Layer(width / 2);
 		} else {
