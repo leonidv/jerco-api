@@ -121,10 +121,10 @@ public class KagomeGenerator implements NetGenerator {
 		} else {
 			assert (getBasePartLayerNumber(layerNumber) == 4);
 			addition = 1;
-			if (width % 2 == 0)
+			if (width % 2 == 0){
 				layer = new Layer((width - 1) / 2);
-			else
-				layer = new Layer(width / 2);
+			} else {
+				layer = new Layer(width / 2);}
 		}
 
 		for (int i = 0; i < layer.size(); i++) {
