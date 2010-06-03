@@ -47,7 +47,7 @@ public class TestKagomeGenerator extends TestBase {
     }
 
     @Test
-    public void test5x4() {
+    public void test5x5() {
         KagomeGenerator generator = new KagomeGenerator();
         List<Layer> layers = generator.generate(5, 5);
 
@@ -82,7 +82,65 @@ public class TestKagomeGenerator extends TestBase {
         checkNode(layer.getNode(3), 17, new Integer[] { 16, 13, 18 });
         checkNode(layer.getNode(4), 18, new Integer[] { 17, 13 });
     }
-    
+    @Test 
+    public void test4x3()
+    {
+    	KagomeGenerator generator = new KagomeGenerator();
+        List<Layer> layers = generator.generate(4, 3);
+        checkNetStructure(layers, 3, 10);
+        
+        Layer layer = layers.get(0);
+        checkNode(layer.getNode(0), 0, new Integer[] { 1, 4 });
+        checkNode(layer.getNode(1), 1, new Integer[] { 0, 2, 4 });
+        checkNode(layer.getNode(2), 2, new Integer[] { 1, 3, 5 });
+        checkNode(layer.getNode(3), 3, new Integer[] { 2, 5});
+     
+        layer = layers.get(1);
+        checkNode(layer.getNode(0), 4, new Integer[] { 0, 1, 6, 7 });
+        checkNode(layer.getNode(1), 5, new Integer[] { 2, 3, 8, 9 });
+
+        layer = layers.get(2);
+        checkNode(layer.getNode(0), 6, new Integer[] { 4, 7 });
+        checkNode(layer.getNode(1), 7, new Integer[] { 4, 6, 8 });
+        checkNode(layer.getNode(2), 8, new Integer[] { 5, 7, 9});
+        checkNode(layer.getNode(3), 9, new Integer[] { 5, 8});
+    }
+    @Test
+    public void test4x6()
+    {
+    	KagomeGenerator generator = new KagomeGenerator();
+        List<Layer> layers = generator.generate(4, 6);
+        
+        checkNetStructure(layers, 6, 17);
+    	 Layer layer = layers.get(0);
+         checkNode(layer.getNode(0), 0, new Integer[] { 1, 4 });
+         checkNode(layer.getNode(1), 1, new Integer[] { 0, 4, 2 });
+         checkNode(layer.getNode(2), 2, new Integer[] { 1, 3, 5 });
+         checkNode(layer.getNode(3), 3, new Integer[] { 2, 5});
+
+         layer = layers.get(1);
+         checkNode(layer.getNode(0), 4, new Integer[] { 0, 1, 6, 7 });
+         checkNode(layer.getNode(1), 5, new Integer[] { 2, 3, 8, 9 });
+
+         layer = layers.get(2);
+         checkNode(layer.getNode(0), 6, new Integer[] { 4, 7 });
+         checkNode(layer.getNode(1), 7, new Integer[] { 6, 4, 8, 10 });
+         checkNode(layer.getNode(2), 8, new Integer[] { 7, 5, 9, 10 });
+         checkNode(layer.getNode(3), 9, new Integer[] { 8, 5});
+         
+         layer = layers.get(3);
+         checkNode(layer.getNode(0), 10, new Integer[] { 7, 8, 12, 13 });
+      
+         layer = layers.get(4);
+         checkNode(layer.getNode(0), 11, new Integer[] { 12, 15 });
+         checkNode(layer.getNode(1), 12, new Integer[] { 11, 10, 15, 13 });
+         checkNode(layer.getNode(2), 13, new Integer[] { 10, 12, 16, 14 });
+         checkNode(layer.getNode(3), 14, new Integer[] { 13, 16});
+
+         layer = layers.get(5);
+         checkNode(layer.getNode(0), 15, new Integer[] { 11, 12});
+         checkNode(layer.getNode(1), 16, new Integer[] { 13, 14});
+    }
     @Test
     public void test100x100 () {
         KagomeGenerator generator = new KagomeGenerator();
