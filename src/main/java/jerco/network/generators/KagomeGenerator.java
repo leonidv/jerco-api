@@ -112,14 +112,20 @@ public class KagomeGenerator implements NetGenerator {
      */
     private Layer createRareLevel(int layerNumber, Layer previousLayer,
             int width) {
-        Layer layer = new Layer(width / 2);
-
+        
+    	
+    	Layer layer;
         int addition;
         if (getBasePartLayerNumber(layerNumber) == 2) {
             addition = 0;
+            layer = new Layer(width / 2);
         } else {
             assert (getBasePartLayerNumber(layerNumber) == 4);
             addition = 1;
+            if(width%2==0)
+            	layer = new Layer((width-1) / 2);
+            else 
+            	layer = new Layer(width / 2);
         }
 
         for (int i = 0; i < layer.size(); i++) {
