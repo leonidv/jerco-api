@@ -18,6 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import jerco.network.generators.NetGenerator;
+import jerco.network.generators.RegularWrapper;
 import jerco.network.generators.NetGenerators;
 
 
@@ -27,7 +28,8 @@ import jerco.network.generators.NetGenerators;
  */
 public class RegularLattice extends NetImpl {
     // Собственное исключение, генерируемое в случае плохого формата файла сети
-    public static class BadNetFileFormatException extends Exception {
+	
+	public static class BadNetFileFormatException extends Exception {
         private static final long serialVersionUID = 1L;
 
         BadNetFileFormatException() {
@@ -127,9 +129,13 @@ public class RegularLattice extends NetImpl {
         if (generated && this.structureInfo.equals(structureInfo)) {
             return;
         }
-        
+         
         this.structureInfo = new NetStructureInfo(structureInfo);
         layers = getGenerator().generate(getWidth(), getHeight());
+        for (RegularWrapper wrapper : structureInfo.getWrapper()) {
+        	  wrapper.wrap(layers);
+        	}
+
         findBounds();
         generated = true;   
     }

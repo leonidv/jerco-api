@@ -1,7 +1,11 @@
 package jerco.network;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jerco.network.generators.NetGenerator;
 import jerco.network.generators.RectGenerator;
+import jerco.network.generators.RegularWrapper;
 
 /**
  * Класс содержит описание структуры сети.
@@ -19,6 +23,7 @@ import jerco.network.generators.RectGenerator;
 public class NetStructureInfo {
     private int width = 100;
     private int height = 100;
+    private List<RegularWrapper> wrappers = new ArrayList<RegularWrapper>();
     private NetGenerator generator = RectGenerator.INSTANCE;
 
     /**
@@ -36,6 +41,7 @@ public class NetStructureInfo {
         this.width = structureInfo.getWidth();
         this.height = structureInfo.getHeight();
         this.generator = structureInfo.getGenerator();
+        this.wrappers = structureInfo.getWrapper();   
     }
     
     /**
@@ -49,10 +55,11 @@ public class NetStructureInfo {
      *          генератор решетки сети
      */
 
-    public NetStructureInfo(int width, int height, NetGenerator generator) {
+    public NetStructureInfo(int width, int height, NetGenerator generator, List<RegularWrapper> wrappers) {
         this.width = width;
         this.height = height;
         this.generator = generator;
+        this.wrappers=wrappers;
     }
 
     public int getWidth() {
@@ -100,6 +107,14 @@ public class NetStructureInfo {
         this.generator = generator;
     }
 
+    public void setWrapper(List<RegularWrapper> wrappers)
+    {
+    	this.wrappers=wrappers;
+    }
+    public List<RegularWrapper> getWrapper()
+    {
+    	return wrappers;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
