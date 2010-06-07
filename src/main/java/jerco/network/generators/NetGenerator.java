@@ -22,12 +22,12 @@ public interface NetGenerator {
     public static final int BOTTOM_BOUNDS = 1;
     
     /**
-     * Константа для обозначения нижней границы.
+     * Константа для обозначения левой границы.
      */
     public static final int LEFT_BOUNDS = 2;
     
     /**
-     * Константа для обозначения нижней границы.
+     * Константа для обозначения правой границы.
      */
     public static final int RIGHT_BOUNDS = 3;
     
