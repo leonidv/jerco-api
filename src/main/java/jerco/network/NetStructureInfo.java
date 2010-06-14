@@ -55,11 +55,11 @@ public class NetStructureInfo {
      *          генератор решетки сети
      */
 
-    public NetStructureInfo(int width, int height, NetGenerator generator, List<RegularWrapper> wrappers) {
+    public NetStructureInfo(int width, int height, NetGenerator generator) {
         this.width = width;
         this.height = height;
         this.generator = generator;
-        this.wrappers=wrappers;
+       
     }
 
     public int getWidth() {
@@ -106,7 +106,10 @@ public class NetStructureInfo {
         }
         this.generator = generator;
     }
-
+    public void addWrapper(RegularWrapper wrapp)
+    {
+    	wrappers.add(wrapp);
+    }
     public void setWrapper(List<RegularWrapper> wrappers)
     {
     	this.wrappers=wrappers;
