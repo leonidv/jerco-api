@@ -19,16 +19,16 @@ import javax.imageio.ImageIO;
 
 import jerco.network.InfectedNodeIterator;
 import jerco.network.Net;
-import jerco.network.RegularLattice;
 import jerco.network.NetStructureInfo;
 import jerco.network.Node;
+import jerco.network.RegularLattice;
 import jerco.network.generators.CylinderGenerator;
 import jerco.scenarios.Scenario;
 import jerco.scenarios.ScenarioExecuteException;
 import jerco.scenarios.ScenarioProgressIndicator;
 import jerco.view.Painter;
-import jerco.view.SquarePainter;
 import jerco.view.RectangleLatticeRender;
+import jerco.view.SquarePainter;
 import jerco.view.colorer.DisplacementColorer;
 
 /**

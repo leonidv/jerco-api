@@ -3,11 +3,9 @@ package jerco.view.colorer;
 import java.awt.Color;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import jerco.network.Node;
-import jerco.scenarios.dynamic.DisplacementScenario;
 import jerco.scenarios.dynamic.StepInfo;
 
 

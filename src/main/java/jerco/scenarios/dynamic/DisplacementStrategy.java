@@ -1,8 +1,5 @@
 package jerco.scenarios.dynamic;
 
-import java.util.Collection;
-
-import jerco.network.RegularLattice;
 import jerco.network.Node;
 
 

@@ -12,12 +12,11 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import jerco.network.Net;
-import jerco.network.RegularLattice;
 import jerco.network.NetStructureInfo;
+import jerco.network.RegularLattice;
 import jerco.view.Painter;
-import jerco.view.SquarePainter;
 import jerco.view.RectangleLatticeRender;
+import jerco.view.SquarePainter;
 
 
 public class DrawNetworkScenario extends Scenario {

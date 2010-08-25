@@ -12,8 +12,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import jerco.network.Layer;
-import jerco.network.RegularLattice;
 import jerco.network.Node;
+import jerco.network.RegularLattice;
 
 
 /**

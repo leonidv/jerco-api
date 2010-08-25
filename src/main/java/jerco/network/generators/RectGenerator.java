@@ -5,7 +5,6 @@ import java.util.List;
 
 import jerco.network.Layer;
 import jerco.network.Node;
-import jerco.network.generators.RegularWrapper;
 
 /**
  * Генератор создания прямоугольной реетки. Первый созданный слой является

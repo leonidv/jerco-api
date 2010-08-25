@@ -4,8 +4,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import jerco.Constants;
-import jerco.network.RegularLattice;
-import jerco.network.generators.NetGenerator;
 import jerco.network.generators.NetGenerators;
 
 

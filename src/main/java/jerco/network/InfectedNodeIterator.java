@@ -2,8 +2,6 @@ package jerco.network;
 
 import java.util.Iterator;
 
-import jerco.network.RegularLattice.NodeIterator;
-
 
 /**
  * Фильтр перебора только зараженных узлов.

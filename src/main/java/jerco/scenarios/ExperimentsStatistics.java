@@ -7,7 +7,6 @@ import java.util.List;
 
 import jerco.network.Cluster;
 import jerco.network.Net;
-import jerco.network.RegularLattice;
 import jerco.utils.Bag;
 
 

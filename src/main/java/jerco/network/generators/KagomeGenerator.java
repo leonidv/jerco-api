@@ -3,11 +3,11 @@ package jerco.network.generators;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jerco.network.Layer;
 import jerco.network.Node;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Генератор решетки Кагоме. Первый слой является верхней границей, последний

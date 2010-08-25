@@ -6,10 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.RectangularShape;
 
-import jerco.network.RegularLattice;
 import jerco.network.Node;
+import jerco.network.RegularLattice;
 import jerco.view.colorer.Colorer;
 import jerco.view.colorer.DefaultNodeColorer;
 

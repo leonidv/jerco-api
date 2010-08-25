@@ -2,8 +2,8 @@ package jerco.scenarios;
 
 import java.io.Serializable;
 
-import jerco.network.RegularLattice;
 import jerco.network.NetStructureInfo;
+import jerco.network.RegularLattice;
 import jerco.network.generators.NetGenerator;
 import jerco.network.generators.RectGenerator;
 

@@ -3,8 +3,6 @@ package jerco.network;
 import java.util.Iterator;
 import java.util.List;
 
-import jerco.network.RegularLattice.NodeIterator;
-
 /**
  * Описывает базовое понятие решетки и доступные с ней действия.
  * 

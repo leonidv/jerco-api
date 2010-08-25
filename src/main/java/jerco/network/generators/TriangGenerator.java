@@ -1,6 +1,5 @@
 package jerco.network.generators;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jerco.network.Layer;

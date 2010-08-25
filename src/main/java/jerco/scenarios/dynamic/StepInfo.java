@@ -2,7 +2,6 @@ package jerco.scenarios.dynamic;
 
 import java.awt.image.BufferedImage;
 import java.util.Collection;
-import java.util.Collections;
 
 import jerco.network.Node;
 

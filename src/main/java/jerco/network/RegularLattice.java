@@ -18,8 +18,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import jerco.network.generators.NetGenerator;
-import jerco.network.generators.RegularWrapper;
 import jerco.network.generators.NetGenerators;
+import jerco.network.generators.RegularWrapper;
 
 
 /**

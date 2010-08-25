@@ -26,7 +26,7 @@ public class TestFreemakerWriter {
 
         Net net = new NetImpl(netGenerator);
 
-        FreemakerWriter writer = new FreemakerWriter(net);
+        FreemarkerWriter writer = new FreemarkerWriter(net);
         writer.loadTemplate(TEMPLATE_NAME);
         writer.write(TestUtils.TEST_TEMP_DIR + "/nodes2.dot");
     }
@@ -53,7 +53,7 @@ public class TestFreemakerWriter {
 
         Net net = new NetImpl(netGenerator);
 
-        FreemakerWriter writer = new FreemakerWriter(net);
+        FreemarkerWriter writer = new FreemarkerWriter(net);
         writer.loadTemplate(TEMPLATE_NAME);
         writer.write(TestUtils.TEST_TEMP_DIR + "/star.dot");
     }
@@ -64,7 +64,7 @@ public class TestFreemakerWriter {
                 new RectGenerator());
         Net net = new RegularLattice(structureInfo);
 
-        FreemakerWriter writer = new FreemakerWriter(net);
+        FreemarkerWriter writer = new FreemarkerWriter(net);
         writer.loadTemplate(TEMPLATE_NAME);
         writer.write(TestUtils.TEST_TEMP_DIR + "/rect.dot");
     }
