@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import jerco.network.io.JercoReaderException;
 import jerco.network.io.NetReader;
 
 import org.slf4j.Logger;
@@ -60,7 +61,7 @@ public class NetImpl implements Net {
 
     }
 
-    public NetImpl(NetReader reader) {
+    public NetImpl(NetReader reader) throws JercoReaderException {
         nodes = reader.read();
         findBounds();
     }

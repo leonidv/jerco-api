@@ -24,6 +24,11 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     // Узел содержит воду
     final public static int WATER = 2;
 
+    /**
+     * Default label object
+     */
+    final public static String NO_LABEL = "";
+
     private static int idCounter = 0;
 
     /**
@@ -75,6 +80,8 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     // сравнения и подсчета хэша
     final private int id;
 
+    private String label = NO_LABEL;
+
     // Связанные с этим узлом узлы
     private NavigableSet<Node> linkedNodes = new TreeSet<Node>();
 
@@ -108,12 +115,29 @@ public class Node implements Iterable<Node>, Comparable<Node> {
     // Идентификатор вещества, которое содержит узел
     private int substance = NONE;
 
+    /**
+     * Create node with deafault unique id.
+     */
     public Node() {
         this(nextId());
     }
 
+    /**
+     * Create node with given id. It's highly recommend use this method only in
+     * testing purporse.
+     * 
+     * @param id
+     */
     public Node(int id) {
         this.id = id;
+    }
+
+    /**
+     * Create node with given label and default (next) id. * @param label
+     */
+    public Node(String label) {
+        this();
+        this.label = label;
     }
 
     /**
@@ -166,10 +190,6 @@ public class Node implements Iterable<Node>, Comparable<Node> {
      * @param node
      */
     public void linkTo(Node node) {
-        if (linkedNodes.contains(node)) {
-            return;
-        }
-
         linkedNodes.add(node);
     }
 
@@ -206,6 +226,25 @@ public class Node implements Iterable<Node>, Comparable<Node> {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Return node label, that used only for user-friendly display.
+     * 
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Set node lable, that used only for user-friendly display.
+     * 
+     * @param label
+     *            the label to set
+     */
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     /**

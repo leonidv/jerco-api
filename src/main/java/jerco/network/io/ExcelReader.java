@@ -153,7 +153,7 @@ public class ExcelReader implements NetReader {
     }
 
     @Override
-    public Set<Node> read() {
+    public Set<Node> read() throws JercoReaderException {
         try {
             loadNetwork();
         } catch (BiffException e) {

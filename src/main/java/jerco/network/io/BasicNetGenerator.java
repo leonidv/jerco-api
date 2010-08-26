@@ -22,7 +22,7 @@ public class BasicNetGenerator implements NetReader {
     private final Map<Integer, Node> nodesId = new HashMap<Integer, Node>();
 
     @Override
-    public Set<Node> read() {
+    public Set<Node> read() throws JercoReaderException {
         return nodes;
     }
 

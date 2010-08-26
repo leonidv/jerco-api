@@ -18,6 +18,7 @@ public interface NetReader {
      * собой узлов, образующих структуру сети.
      * 
      * @return
+     * @throws JercoReaderException TODO
      */
-    public Set<Node> read();
+    public Set<Node> read() throws JercoReaderException;
 }
