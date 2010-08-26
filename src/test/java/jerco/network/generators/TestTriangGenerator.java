@@ -1,5 +1,7 @@
 package jerco.network.generators;
+
 import static jerco.TestUtils.checkBounds;
+
 import static jerco.TestUtils.checkLayerLength;
 import static jerco.TestUtils.checkNetStructure;
 import static jerco.TestUtils.checkNode;
@@ -14,22 +16,25 @@ import jerco.network.RegularLattice;
 import jerco.network.TestBase;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-public class TestTriangGenerator extends TestBase{
-private NetStructureInfo structureInfo;
-    
+
+
+public class TestTriangGenerator extends TestBase {
+    private NetStructureInfo structureInfo;
+
     @Before
     public void setUp() {
         structureInfo = new NetStructureInfo();
         structureInfo.setGenerator(TriangGenerator.INSTANCE);
     }
-    
+
     /**
      * Проверяет связанность двух слоев:
      * 
      * <pre>
      * 0 1 2
-     * | | |
+     *  \ \
      * 3 4 5
      * </pre>
      */
@@ -41,20 +46,12 @@ private NetStructureInfo structureInfo;
         TriangGenerator generator = TriangGenerator.INSTANCE;
         generator.addlinkLayers(layerA, layerB);
 
-        checkNode(layerA.getNode(0), 0, new Integer[] { 3 });
-        checkNode(layerA.getNode(1), 1, new Integer[] { 4 });
-        checkNode(layerA.getNode(2), 2, new Integer[] { 5 });
+        checkNode(layerA.getNode(0), 0, new Integer[] { 4 });
+        checkNode(layerA.getNode(1), 1, new Integer[] { 5 });
 
-        checkNode(layerB.getNode(0), 3, new Integer[] { 0 });
-        checkNode(layerB.getNode(1), 4, new Integer[] { 1 });
-        checkNode(layerB.getNode(2), 5, new Integer[] { 2 });
-        
-        checkNode(layerB.getNode(0), 0, new Integer[] { 4 });
-        checkNode(layerB.getNode(1), 1, new Integer[] { 5 });
-        
-        checkNode(layerB.getNode(0), 4, new Integer[] { 0 });
-        checkNode(layerB.getNode(1), 5, new Integer[] { 1 });
-   
+        checkNode(layerB.getNode(1), 4, new Integer[] { 0 });
+        checkNode(layerB.getNode(2), 5, new Integer[] { 1 });
+
     }
 
     /**
@@ -62,9 +59,9 @@ private NetStructureInfo structureInfo;
      */
     @Test
     public void testGenerate1x1() {
-        structureInfo.setWidth(1);        
+        structureInfo.setWidth(1);
         structureInfo.setHeight(1);
-        
+
         RegularLattice net = new RegularLattice(structureInfo);
 
         List<Layer> layers = net.getLayers();
@@ -86,22 +83,22 @@ private NetStructureInfo structureInfo;
     public void testGenerate2x2() {
         structureInfo.setWidth(2);
         structureInfo.setHeight(2);
-        
+
         RegularLattice net = new RegularLattice(structureInfo);
 
         List<Layer> layers = net.getLayers();
         checkNetStructure(layers, 2, 4);
 
         Node[] nodes = checkLayerLength(layers.get(0).toArray(), 2);
-        checkNode(nodes[0], 0, new Integer[] { 1, 2,3 });
+        checkNode(nodes[0], 0, new Integer[] { 1, 2, 3 });
         checkNode(nodes[1], 1, new Integer[] { 0, 3 });
         checkBounds(NetGenerator.TOP_BOUNDS, nodes);
-        
+
         nodes = checkLayerLength(layers.get(1).toArray(), 2);
         checkNode(nodes[0], 2, new Integer[] { 0, 3 });
         checkNode(nodes[1], 3, new Integer[] { 2, 1, 0 });
         checkBounds(NetGenerator.BOTTOM_BOUNDS, nodes);
-        
+
     }
 
     /**
@@ -126,14 +123,14 @@ private NetStructureInfo structureInfo;
 
         Node[] nodes = checkLayerLength(layers.get(0).toArray(), 3);
         checkNode(nodes[0], 0, new Integer[] { 1, 3, 4 });
-        checkNode(nodes[1], 1, new Integer[] { 0, 2, 4, 5});
-        checkNode(nodes[2], 2, new Integer[] { 1, 5,});
+        checkNode(nodes[1], 1, new Integer[] { 0, 2, 4, 5 });
+        checkNode(nodes[2], 2, new Integer[] { 1, 5, });
         checkBounds(NetGenerator.TOP_BOUNDS, nodes);
 
         nodes = checkLayerLength(layers.get(1).toArray(), 3);
         checkNode(nodes[0], 3, new Integer[] { 0, 4, 6, 7 });
-        checkNode(nodes[1], 4, new Integer[] { 0, 1, 3, 5, 7, 8});
-        checkNode(nodes[2], 5, new Integer[] { 2, 4, 8 });
+        checkNode(nodes[1], 4, new Integer[] { 0, 1, 3, 5, 7, 8 });
+        checkNode(nodes[2], 5, new Integer[] { 1, 2, 4, 8 });
 
         nodes = checkLayerLength(layers.get(2).toArray(), 3);
         checkNode(nodes[0], 6, new Integer[] { 3, 7 });
@@ -141,7 +138,5 @@ private NetStructureInfo structureInfo;
         checkNode(nodes[2], 8, new Integer[] { 7, 5, 4 });
         checkBounds(NetGenerator.BOTTOM_BOUNDS, nodes);
     }
-    
+
 }
-
-

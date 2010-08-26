@@ -5,6 +5,8 @@ import java.util.List;
 import jerco.network.Layer;
 import jerco.network.TestBase;
 import static jerco.TestUtils.*;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestKagomeGenerator extends TestBase {
@@ -142,10 +144,11 @@ public class TestKagomeGenerator extends TestBase {
 		checkNode(layer.getNode(1), 16, new Integer[] { 13, 14 });
 	}
 
+	@Ignore
 	@Test
 	public void test100x100() {
 		KagomeGenerator generator = new KagomeGenerator();
-		generator.generate(11, 11);
+		generator.generate(10, 10);
 	}
 
 }
