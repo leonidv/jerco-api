@@ -1,12 +1,50 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>jerco</groupId>
+	<groupId>net.sf.jerco</groupId>
 	<artifactId>jerco-api</artifactId>
+	<version>1.1-SNAPSHOT</version>
+	
 	<packaging>jar</packaging>
-	<version>1.1</version>
 	<name>jerco-api</name>
-	<url>http://maven.apache.org</url>
+	<description>Percolation simulator written in Java platfrom. Allow to create regular lattice (rectangle, Kagome, etc) and free-form network. </description>
+	<url>https://sourceforge.net/projects/jerco/</url>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+			
+		</license>
+	</licenses>
+
+	<issueManagement>
+		<system>Trac on Sourceforge</system>
+		<url>https://sourceforge.net/apps/trac/jerco/roadmap</url>
+	</issueManagement>
+	<scm>
+		<url>http://jerco.hg.sourceforge.net/hgweb/jerco/jerco-api/</url>
+	</scm>
+	<organization>
+		<url>vygovskiy.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Leonid Vygovskiy</name>
+			<roles>
+				<role>creator</role>
+			</roles>
+		</developer>
+		<developer>
+			<name>Alexandra Telukina</name>
+			<roles>
+				<role>student</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<build>
 		<plugins>
