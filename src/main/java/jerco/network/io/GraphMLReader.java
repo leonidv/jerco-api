@@ -134,7 +134,6 @@ public class GraphMLReader implements NetReader {
                 if (event.isStartElement()) {
                     StartElement tag = event.asStartElement();
                     String name = tag.getName().getLocalPart();
-                    System.out.println("tag: " + name);
 
                     if ("node".equalsIgnoreCase(name)) {
                         try {
