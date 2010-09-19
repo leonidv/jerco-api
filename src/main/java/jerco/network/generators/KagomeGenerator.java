@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class KagomeGenerator implements NetGenerator {
-    @SuppressWarnings("unused")
     private final static Logger LOG = LoggerFactory
             .getLogger(KagomeGenerator.class);
 
@@ -31,25 +30,30 @@ public class KagomeGenerator implements NetGenerator {
     public List<Layer> generate(int width, int height) {
         List<Layer> layers = new ArrayList<Layer>(height);
 
+        LOG.debug("Generate layer 1/0");
         Layer layer = new Layer(width);
         layer.linkNeighbors();
         layers.add(layer);
+        LOG.debug("Generated layer {}",layer);
 
         for (int layerNumber = 1; layerNumber < height; layerNumber++) {
             Layer previousLayer = layers.get(layerNumber - 1);
-            switch (getBasePartLayerNumber(layerNumber)) {
+            final int basePartLayerNumber = getBasePartLayerNumber(layerNumber);
+            LOG.debug("Generate layer {}/{}", basePartLayerNumber, layerNumber);
+            switch (basePartLayerNumber) {
+            case 1:
             case 3:
             case 5:
                 layer = createLinkedLayer(layerNumber, previousLayer, width);
                 break;
             case 2:
             case 4:
-            case 1:
                 layer = createRareLevel(layerNumber, previousLayer, width);
                 break;
             }
 
             layers.add(layer);
+            LOG.debug("Generated layer {}",layer);
         }
 
         for (Node node : layers.get(0)) {
@@ -70,7 +74,7 @@ public class KagomeGenerator implements NetGenerator {
      * @return
      */
     private int getBasePartLayerNumber(int layerNumber) {
-        return (layerNumber % 5) + 1;
+        return (layerNumber % 4) + 1;
     }
 
     /**
@@ -82,11 +86,13 @@ public class KagomeGenerator implements NetGenerator {
      */
     private Layer createLinkedLayer(int layerNumber, Layer previousLayer,
             int width) {
+        LOG.debug("Generate linked layer #{}", layerNumber);
+
         Layer layer = new Layer(width);
         layer.linkNeighbors();
 
         int substraction = 0;
-        if (getBasePartLayerNumber(layerNumber) == 5) {
+        if (getBasePartLayerNumber(layerNumber) == 1) {
             substraction = 1;
         }
 
@@ -114,14 +120,17 @@ public class KagomeGenerator implements NetGenerator {
     private Layer createRareLevel(int layerNumber, Layer previousLayer,
             int width) {
 
+        LOG.debug("Generate rare layer #{}", layerNumber);
         Layer layer;
         int addition;
-        if (getBasePartLayerNumber(layerNumber) == 2
-                || getBasePartLayerNumber(layerNumber) == 1) {
+
+        final int baseNumber = getBasePartLayerNumber(layerNumber);
+        if (baseNumber == 2 || baseNumber == 1) {
             addition = 0;
             layer = new Layer(width / 2);
+
         } else {
-            assert (getBasePartLayerNumber(layerNumber) == 4);
+            assert (baseNumber == 4);
             addition = 1;
             if (width % 2 == 0) {
                 layer = new Layer((width - 1) / 2);

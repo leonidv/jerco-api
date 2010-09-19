@@ -45,6 +45,13 @@ public interface Net extends Iterable<Node> {
     public int size();
 
     /**
+     * Возвращает количество границ.
+     * 
+     * @return
+     */
+    public int boundsCounts();
+    
+    /**
      * Возвращает вероятность заражения узла сети, которая была установлена при
      * последнем заражении.
      * 

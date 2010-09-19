@@ -144,11 +144,16 @@ public class TestKagomeGenerator extends TestBase {
 		checkNode(layer.getNode(1), 16, new Integer[] { 13, 14 });
 	}
 
-	@Ignore
-	@Test
-	public void test100x100() {
-		KagomeGenerator generator = new KagomeGenerator();
-		generator.generate(10, 10);
+	/**
+	 * This test was used to make really check of stability rectangle generation.
+	 * @Test
+	 */
+	public void testStability() {
+	  for (int width = 5; width < 150; width++ ) {
+	      for (int height = 5; height < 150; height++) {
+	          KagomeGenerator generator = new KagomeGenerator();
+	          generator.generate(width, height);
+	      }
+	  }
 	}
-
 }

@@ -220,4 +220,9 @@ public class NetImpl implements Net {
         return nodes.size();
     }
 
+    @Override
+    public int boundsCounts() {       
+        return bounds.size();
+    }
+
 }
