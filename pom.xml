@@ -15,16 +15,11 @@
 			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
 			<distribution>repo</distribution>
-			
 		</license>
 	</licenses>
 
-	<issueManagement>
-		<system>Trac on Sourceforge</system>
-		<url>https://sourceforge.net/apps/trac/jerco/roadmap</url>
-	</issueManagement>
 	<scm>
-		<url>http://jerco.hg.sourceforge.net/hgweb/jerco/jerco-api/</url>
+		<url>https://github.com/leonidv/jerco-api</url>
 	</scm>
 	<organization>
 		<url>vygovskiy.com</url>
@@ -51,8 +46,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
@@ -62,23 +57,23 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>[0.9.18,)</version>
+			<version>1.1.3</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sourceforge.jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
-			<version>2.6.3</version>
+			<version>2.6.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
-			<version>[2.3.16,2.4)</version>
+			<version>2.3.23</version>
 		</dependency>
 	</dependencies>
 	<reporting>

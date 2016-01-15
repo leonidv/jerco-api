@@ -5,6 +5,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -20,6 +23,8 @@ import jerco.network.Node;
 public class TestUtils {
     public final static String TEST_FILES_FOLDER = "src/test/resources/";
     public static final String TEST_TEMP_DIR = "target/test-temp-results";
+
+    public final static Path TEST_TEMP_PATH = FileSystems.getDefault().getPath(TEST_TEMP_DIR);
 
     /**
      * Считывает файл из каталога с тестовыми файлами.
@@ -104,11 +109,7 @@ public class TestUtils {
      * Если после удаления всех связанных узлов остались тестовые данные, то это
      * тоже ошибка. Значит узел связан не совсеми узлами, с которыми должен быть
      * связан.
-     * 
-     * @param node
-     *            - проверяемый узел
-     * @param linkedWith
-     *            - список идентификаторов связанных с узлом
+     *
      */
 
     public static void checkNodes(Iterator<Node> iterator, Integer... nodesIDs) {

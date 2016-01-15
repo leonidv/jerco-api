@@ -8,12 +8,25 @@ import jerco.network.Node;
 import jerco.network.RegularLattice;
 import jerco.network.generators.RectGenerator;
 
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class TestFreemakerWriter {
 
     private static final String TEMPLATE_NAME = TestUtils.TEST_FILES_FOLDER
             + "/graphviz.ftl";
+
+    @BeforeClass
+    public static void createTempDir() throws IOException {
+      if (!Files.isDirectory(TestUtils.TEST_TEMP_PATH)) {
+          Files.createDirectories(TestUtils.TEST_TEMP_PATH);
+      }
+    }
+
 
     @Test
     public void test2nodes() throws Exception {

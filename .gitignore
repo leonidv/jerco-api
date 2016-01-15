@@ -1,0 +1,4 @@
+# Eclipse projects file
+.*
+target/
+*.log

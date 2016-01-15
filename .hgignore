@@ -1,6 +1,0 @@
-# Eclipse projects file
-.classpath
-.project
-target/*
-.*.swp
-.settings/*
